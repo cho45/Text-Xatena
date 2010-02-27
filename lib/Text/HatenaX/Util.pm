@@ -12,7 +12,7 @@ my %escape = (
     '"' => '&#34;',
     "'" => '&#39;',
 );
-sub escape_html ($) {
+sub escape_html ($) { ## no critic
     my ($str) = @_;
     my $escape = join "|", keys %escape;
     $str =~ s{($escape)}{ $escape{$1} }ego;
