@@ -2,9 +2,23 @@ package Text::HatenaX;
 
 use strict;
 use warnings;
+use UNIVERSAL::require;
+
 use Text::HatenaX::LineScanner;
-use Text::HatenaX::Node qw(node);
+use Text::HatenaX::Node;
+use Text::HatenaX::Node::Root;
+
 our $VERSION = '0.01';
+
+our $SYNTAXES = [
+    'Text::HatenaX::Node::SuperPre',
+    'Text::HatenaX::Node::StopP',
+    'Text::HatenaX::Node::Blockquote',
+    'Text::HatenaX::Node::Pre',
+    'Text::HatenaX::Node::List',
+    'Text::HatenaX::Node::Table',
+    'Text::HatenaX::Node::Section',
+];
 
 sub new {
     my ($class, %opts) = @_;
@@ -21,12 +35,13 @@ sub _parse {
     my ($self, $string) = @_;
 
     my $s     = Text::HatenaX::LineScanner->new($string);
-    my $stack = [ node("Root")->new ];
+    my $stack = [ Text::HatenaX::Node::Root->new ];
     loop: until ($s->eos) {
         my $parent   = $stack->[-1];
 
-        for my $name (qw(SuperPre StopP Blockquote Pre List Table Section)) {
-            node($name)->parse($s, $parent, $stack) and next loop;
+        for my $pkg (@$SYNTAXES) {
+            $pkg->use or die $@;
+            $pkg->parse($s, $parent, $stack) and next loop;
         }
 
         # plain lines
