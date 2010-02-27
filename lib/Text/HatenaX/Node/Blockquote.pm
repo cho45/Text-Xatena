@@ -24,6 +24,11 @@ sub parse {
     }
 }
 
+sub as_html {
+    my ($self) = @_;
+    '<blockquote>' . $self->SUPER::as_html . '</blockquote>';
+}
+
 1;
 __END__
 
