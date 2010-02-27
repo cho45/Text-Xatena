@@ -17,7 +17,7 @@ sub parse {
 }
 
 sub as_html {
-    my ($self) = @_;
+    my ($self, %opts) = @_;
     '<pre>' . escape_html(join "", @{ $self->children }) . '</pre>';
 }
 

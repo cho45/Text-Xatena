@@ -23,11 +23,10 @@ sub parse {
     }
 }
 
-sub as_html_paragraph {
-    my ($self, $text) = @_;
-    $text;
+sub as_html {
+    my ($self, %opts) = @_;
+    $self->SUPER::as_html(%opts, stopp => 1);
 }
-
 
 1;
 __END__

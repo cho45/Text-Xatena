@@ -25,8 +25,8 @@ sub parse {
 }
 
 sub as_html {
-    my ($self) = @_;
-    '<blockquote>' . $self->SUPER::as_html . '</blockquote>';
+    my ($self, %opts) = @_;
+    '<blockquote>' . $self->SUPER::as_html(%opts) . '</blockquote>';
 }
 
 1;
