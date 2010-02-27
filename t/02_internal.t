@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 7;
+use Test::More tests => 11;
 use Text::HatenaX;
 use Data::Dumper;
 
@@ -163,7 +163,63 @@ same $res, {
 	]
 };
 
-__END__
+$res = $thx->_parse(<<EOS);
+>>
+quote1
+>|
+pre
+foo
+|<
+<<
+EOS
+
+same $res, {
+	children => [
+		{
+			beginning => ['>>', 1],
+			endofnode => ['<<', 1],
+			children => [
+				"quote1",
+				{
+					children => [
+						"pre",
+						"foo",
+						"",
+					],
+				},
+			],
+		},
+	]
+};
+$res = $thx->_parse(<<EOS);
+>>
+quote1
+>|
+pre
+foo
+baz|<
+<<
+EOS
+
+same $res, {
+	children => [
+		{
+			beginning => ['>>', 1],
+			endofnode => ['<<', 1],
+			children => [
+				"quote1",
+				{
+					children => [
+						"pre",
+						"foo",
+						"baz",
+					],
+				},
+			],
+		},
+	]
+};
+
 $res = $thx->_parse(<<EOS);
 ><blockquote>
 <p>

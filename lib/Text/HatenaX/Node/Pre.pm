@@ -1,25 +1,22 @@
-package Text::HatenaX::Node::Blockquote;
+package Text::HatenaX::Node::Pre;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
-
-sub beginning { qr/^>>$/ };
-sub endofnode { qr/^<<$/ };
+use base qw(Text::HatenaX::Node::StopP);
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan($class->beginning)) {
+    if ($s->scan(qr/^>\|$/)) {
         my $node = $class->new;
-        $node->{beginning} = $s->matched;
         push @$parent, $node;
         push @$stack, $node;
         return 1;
     }
-    if ($s->scan($class->endofnode)) {
+
+    if ($s->scan(qr/^(.*?)\|<$/)) {
+        push @$parent, $s->matched->[1];
         my $node = pop @$stack;
         ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);
-        $node->{endofnode} = $s->matched;
         return 1;
     }
 }

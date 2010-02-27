@@ -25,7 +25,7 @@ sub _parse {
     loop: until ($s->eos) {
         my $parent   = $stack->[-1];
 
-        for my $name (qw(SuperPre StopP Blockquote List)) {
+        for my $name (qw(SuperPre StopP Blockquote Pre List)) {
             node($name)->parse($s, $parent, $stack) and next loop;
         }
 

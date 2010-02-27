@@ -5,19 +5,20 @@ use warnings;
 use base qw(Text::HatenaX::Node);
 
 sub parse {
-    my ($class, $s, $cur, $stack) = @_;
+    my ($class, $s, $parent, $stack) = @_;
     if ($s->scan(qr/^>(<.+>)(<)?$/)) {
-        my $new = $class->new([ $s->matched->[1] ]);
-        push @$cur, $new;
+        my $node = $class->new([ $s->matched->[1] ]);
+        push @$parent, $node;
         if (!$s->matched->[2]) {
-            push @$stack, $new;
+            push @$stack, $node;
         }
         return 1;
     }
 
     if ($s->scan(qr/^(.+>)<$/)) {
-        push @$cur, $s->matched->[1];
-        pop @$stack;
+        push @$parent, $s->matched->[1];
+        my $node = pop @$stack;
+        ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);
         return 1;
     }
 }
