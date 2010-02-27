@@ -29,6 +29,7 @@ sub new {
 
 sub format {
     my ($self, $string) = @_;
+    $self->_parse($string)->as_html;
 }
 
 sub _parse {
