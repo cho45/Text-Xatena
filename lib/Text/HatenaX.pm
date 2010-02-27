@@ -63,15 +63,21 @@ __END__
 
 =head1 NAME
 
-Text::HatenaX -
+Text::HatenaX - Text-to-HTML converter with Hatena syntax.
 
 =head1 SYNOPSIS
 
   use Text::HatenaX;
 
+  my $thx = Text::HatenaX->new;
+  Text::HatenaX->format($string);
+
 =head1 DESCRIPTION
 
-Text::HatenaX is
+Text::HatenaX is a text-to-html converter.
+
+Text::HatenaX is comfortably to writing usual diary and blog,
+especially for programmers, writers treating long text.
 
 =head1 AUTHOR
 
