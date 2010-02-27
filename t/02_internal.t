@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 11;
+use Test::More tests => 13;
 use Text::HatenaX;
 use Data::Dumper;
 
@@ -284,6 +284,72 @@ same $res, {
 			children => [qw{
 				</ins>
 			} ],
+		},
+	]
+};
+
+
+$res = $thx->_parse(<<EOS);
+foobar
+
+* head 1
+content of head 1
+
+** head 1.1
+content of head 1.1
+
+*** head 1.1.1
+content of head 1.1.1
+
+*** head 1.1.2
+content of head 1.1.2
+
+* head 2
+content of head 2
+EOS
+
+same $res, {
+	children => [
+		"foobar",
+		"",
+		{
+			level => 1,
+			title => 'head 1',
+			children => [
+				'content of head 1',
+				'',
+				{
+					level => 2,
+					title => 'head 1.1',
+					children => [
+						'content of head 1.1',
+						'',
+						{
+							level => 3,
+							title => 'head 1.1.1',
+							children => [
+								'content of head 1.1.1',
+								'',
+							],
+						},
+						{
+							level => 3,
+							title => 'head 1.1.2',
+							children => [
+								'content of head 1.1.2',
+								'',
+							],
+						},
+					],
+				},
+			],
+		},
+		{
+			level => 1,
+			title => 'head 2',
+			children => [
+				'content of head 2',
+			],
 		},
 	]
 };
