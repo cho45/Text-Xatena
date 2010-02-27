@@ -18,6 +18,7 @@ our $SYNTAXES = [
     'Text::HatenaX::Node::List',
     'Text::HatenaX::Node::Table',
     'Text::HatenaX::Node::Section',
+    'Text::HatenaX::Node::Comment',
 ];
 
 sub new {

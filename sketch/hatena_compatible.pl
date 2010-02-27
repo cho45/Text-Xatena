@@ -21,6 +21,7 @@ local $Text::HatenaX::Node::Section::BEGINNING = "";
 local $Text::HatenaX::Node::Section::ENDOFNODE = "";
 local *Text::HatenaX::Node::as_html_paragraph = sub {
 	my ($self, $text, %opts) = @_;
+	$text =~ s{^\n}{}g;
 	if ($opts{stopp}) {
 		$text;
 	} else {

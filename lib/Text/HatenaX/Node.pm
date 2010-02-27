@@ -25,14 +25,14 @@ sub as_html {
     my $texts = [];
     for my $child (@$children) {
         if (ref($child)) {
-            $ret .= $self->as_html_paragraph(join("\n", @$texts), %opts) if @$texts;
+            $ret .= $self->as_html_paragraph(join("\n", @$texts), %opts) if join '', @$texts;
             $texts = [];
             $ret .= $child->as_html(%opts);
         } else {
             push @$texts, $child;
         }
     }
-    $ret .= $self->as_html_paragraph(join("\n", @$texts), %opts) if @$texts;
+    $ret .= $self->as_html_paragraph(join("\n", @$texts), %opts) if join '', @$texts;
 
     $ret;
 }
