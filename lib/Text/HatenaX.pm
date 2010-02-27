@@ -16,6 +16,7 @@ our $SYNTAXES = [
     'Text::HatenaX::Node::Blockquote',
     'Text::HatenaX::Node::Pre',
     'Text::HatenaX::Node::List',
+    'Text::HatenaX::Node::DefinitionList',
     'Text::HatenaX::Node::Table',
     'Text::HatenaX::Node::Section',
     'Text::HatenaX::Node::Comment',

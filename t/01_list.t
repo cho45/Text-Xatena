@@ -64,3 +64,16 @@ __END__
     </li>
     <li>3</li>
 </ul>
+
+=== test
+--- input
+:foo:bar
+:baz:piyo
+--- expected
+<dl>
+    <dt>foo</dt>
+    <dd>bar</dd>
+    <dt>baz</dt>
+    <dd>piyo</dd>
+</dl>
+
