@@ -35,8 +35,11 @@ sub as_html {
     $ret;
 }
 
+## NOT COMPATIBLE WITH Hatena Syntax
 sub as_html_paragraph {
     my ($self, $text, %opts) = @_;
+    $text =~ s{^\n}{}g;
+
     if ($opts{stopp}) {
         $text;
     } else {
