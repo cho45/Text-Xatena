@@ -3,6 +3,7 @@ package Text::HatenaX::Node::SuperPre;
 use strict;
 use warnings;
 use base qw(Text::HatenaX::Node);
+use Text::HatenaX::Util;
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
@@ -15,6 +16,10 @@ sub parse {
     }
 }
 
+sub as_html {
+    my ($self) = @_;
+    '<pre>' . escape_html(join "", @{ $self->children }) . '</pre>';
+}
 
 1;
 __END__
