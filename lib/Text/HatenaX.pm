@@ -22,6 +22,11 @@ our $SYNTAXES = [
 
 sub new {
     my ($class, %opts) = @_;
+
+    for my $pkg (@$SYNTAXES) {
+        $pkg->use or die $@;
+    }
+
     bless {
         %opts
     }, $class;
@@ -41,7 +46,6 @@ sub _parse {
         my $parent   = $stack->[-1];
 
         for my $pkg (@$SYNTAXES) {
-            $pkg->use or die $@;
             $pkg->parse($s, $parent, $stack) and next loop;
         }
 
