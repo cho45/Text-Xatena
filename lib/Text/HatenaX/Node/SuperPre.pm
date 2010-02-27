@@ -7,18 +7,25 @@ use Text::HatenaX::Util;
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^>\|\|$/)) {
+    if ($s->scan(qr/^>\|([^|]*)\|$/)) {
+        my $lang = $s->matched->[1];
         my $content = $s->scan_until(qr/^\|\|<$/);
         pop @$content;
-        my $a = $class->new([join("\n", @$content)]);
-        push @$parent, $a;
+        my $node = $class->new([join("\n", @$content)]);
+        $node->{lang} = $lang;
+        push @$parent, $node;
         return 1;
     }
 }
 
+sub lang { $_[0]->{lang} }
+
 sub as_html {
     my ($self, %opts) = @_;
-    '<pre>' . escape_html(join "", @{ $self->children }) . '</pre>';
+    sprintf('<pre class="code%s">%s</pre>',
+        $self->lang ? " lang-" . $self->lang : "",
+        escape_html(join "", @{ $self->children })
+    );
 }
 
 1;

@@ -17,7 +17,7 @@ test
 test
 ||<
 --- expected
-<pre>
+<pre class="code">
 test
 test
 </pre>
@@ -28,7 +28,7 @@ test
 <a href="foobar">foobar</a>
 ||<
 --- expected
-<pre>
+<pre class="code">
 &lt;a href=&#34;foobar&#34;&gt;foobar&lt;/a&gt;
 </pre>
 
@@ -40,8 +40,20 @@ foobar
 <<
 ||<
 --- expected
-<pre>
+<pre class="code">
 &gt;&gt;
 foobar
 &lt;&lt;
+</pre>
+
+=== test
+--- input
+>|perl|
+test
+test
+||<
+--- expected
+<pre class="code lang-perl">
+test
+test
 </pre>
