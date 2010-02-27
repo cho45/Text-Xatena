@@ -12,24 +12,21 @@ __END__
 
 === test
 --- input
-test
---- expected
+><blockquote>
 <p>test</p>
+</blockquote><
+--- expected
+<blockquote>
+<p>test</p>
+</blockquote>
 
 === test
 --- input
-test
-test
+><ins datetime="2010-02-27T00:00:00Z"><
+foobar
+></ins><
 --- expected
-<p>test<br />test</p>
-
-=== test
---- input
-test
-test
-
-test
---- expected
-<p>test<br />test</p>
-<p>test</p>
+<ins datetime="2010-02-27T00:00:00Z">
+<p>foobar</p>
+</ins>
 

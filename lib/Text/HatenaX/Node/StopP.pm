@@ -16,11 +16,16 @@ sub parse {
     }
 
     if ($s->scan(qr/^(.+>)<$/)) {
-        push @$parent, $s->matched->[1];
         my $node = pop @$stack;
+        push @$node, $s->matched->[1];
         ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);
         return 1;
     }
+}
+
+sub as_html_paragraph {
+    my ($self, $text) = @_;
+    $text;
 }
 
 

@@ -3,20 +3,46 @@ package Text::HatenaX::Test;
 use strict;
 use warnings;
 use Test::Base -Base;
+use HTML::Parser;
+use Data::Dumper;
 
 use Text::HatenaX;
 
 filters {
-    input => [qw/thx chomp html/],
-    expected => [qw/html/],
+    input => [qw/chomp/],
+    expected => [qw/chomp/],
 };
 
-package Text::HatenaX::Test::Filter;
-use Test::Base::Filter -base;
-use HTML::Parser;
+our @EXPORT = qw(run_html);
 
-sub html {
+sub thx ($);
+sub html ($);
+
+sub run_html {
+    run {
+        my ($block) = @_;
+        my $input = $block->input;
+        my $expected = html $block->expected;
+        my $got = html thx $input;
+        is_deeply($got, $expected, $block->name) or warn sprintf("expected:\n%s\n\n%s\ngot:\n%s\n\n%s\n",
+            scalar $block->expected,
+            Dumper $expected,
+            scalar thx($input),
+            Dumper $got,
+        );
+    }
+}
+
+sub thx ($) {
+    my ($str) = @_;
+    my $thx = Text::HatenaX->new;
+    my $ret = $thx->format($str);
+    $ret;
+}
+
+sub html ($) {
     my ($s) = @_;
+
     my $root  = [ tag => attr => [] ];
     my $stack = [ $root ];
     my $p = HTML::Parser->new(
@@ -57,10 +83,6 @@ sub html {
     $root;
 }
 
-sub thx {
-    my $thx = Text::HatenaX->new;
-    $thx->format(shift);
-}
 
 
 1;
