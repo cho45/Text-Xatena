@@ -42,7 +42,8 @@ sub _parse {
     my ($self, $string) = @_;
 
     my $s     = Text::HatenaX::LineScanner->new($string);
-    my $stack = [ Text::HatenaX::Node::Root->new ];
+    my $root  = Text::HatenaX::Node::Root->new ;
+    my $stack = [ $root ];
     loop: until ($s->eos) {
         my $parent   = $stack->[-1];
 
@@ -53,7 +54,8 @@ sub _parse {
         # plain lines
         push @$parent, $s->scan(qr//);
     }
-    $stack->[0];
+
+    $root;
 }
 
 1;
