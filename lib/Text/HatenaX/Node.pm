@@ -6,6 +6,8 @@ use overload
     '@{}' => \&children,
     fallback => 1;
 
+our $INLINE = "Text::HatenaX::Inline";
+
 sub new {
     my ($class, $children) = @_;
     bless {
@@ -38,7 +40,9 @@ sub as_html {
 ## NOT COMPATIBLE WITH Hatena Syntax
 sub as_html_paragraph {
     my ($self, $text, %opts) = @_;
+    $INLINE->use or die $@;
     $text =~ s{^\n}{}g;
+    $text = $INLINE->new(%opts)->format($text);
 
     if ($opts{stopp}) {
         $text;
