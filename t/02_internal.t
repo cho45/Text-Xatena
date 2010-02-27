@@ -104,6 +104,24 @@ same $res, {
 };
 
 $res = $thx->_parse(<<EOS);
+|foo|bar|
+|foo|bar|
+|foo|bar|
+EOS
+
+same $res, {
+	children => [
+		{
+			children => [
+				"|foo|bar|",
+				"|foo|bar|",
+				"|foo|bar|",
+			]
+		}
+	]
+};
+
+$res = $thx->_parse(<<EOS);
 >||
 
 foobar
