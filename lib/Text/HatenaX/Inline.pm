@@ -4,12 +4,21 @@ use strict;
 use warnings;
 use Regexp::Assemble;
 use URI::Escape;
+use Exporter::Lite;
 
-our $inlines = [];
+our @EXPORT_OK = qw(match);
+
+sub inlines {
+    my ($caller) = @_;
+    $caller = ref($caller) || $caller;
+    no strict 'refs';
+    ${$caller.'::_inlines'} ||= [];
+}
 
 sub match ($$) { ## no critic
     my ($regexp, $block) = @_;
-    push @$inlines, { regexp => $regexp, block => $block };
+    my $pkg = caller(0);
+    push @{ $pkg->inlines }, { regexp => $regexp, block => $block };
 }
 
 sub new {
@@ -21,14 +30,14 @@ sub new {
 
 sub format {
     my ($self, $text) = @_;
-    my $re = join("|", map { $_->{regexp} } @$inlines);
-    $text =~ s{($re)}{$self->_format($1)}ego;
+    my $re = join("|", map { $_->{regexp} } @{ $self->inlines });
+    $text =~ s{($re)}{$self->_format($1)}eg;
     $text;
 }
 
 sub _format {
     my ($self, $string) = @_;
-    for my $inline (@$inlines) {
+    for my $inline (@{ $self->inlines }) {
         if (my @matched = ($string =~ $inline->{regexp})) {
             $string = $inline->{block}->($self, @matched);
             last;
