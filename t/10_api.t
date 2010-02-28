@@ -10,8 +10,8 @@ sub u8 ($) {
     decode_utf8(shift);
 }
 
-sub is_u8 ($) {
-    ok utf8::is_utf8(shift);
+sub is_u8 ($;$) {
+    ok utf8::is_utf8(shift), shift;
 }
 
 subtest "basic" => sub {
