@@ -2,7 +2,6 @@ package Text::HatenaX::Inline;
 
 use strict;
 use warnings;
-use Regexp::Assemble;
 use URI::Escape;
 use Exporter::Lite;
 
