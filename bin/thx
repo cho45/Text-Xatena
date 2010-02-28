@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib 'lib';
+
+use Text::HatenaX;
+
+my $input = do { local $/; <ARGV> };
+print Text::HatenaX->new->format($input), "\n";
+
