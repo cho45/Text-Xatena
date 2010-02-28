@@ -48,14 +48,14 @@ __END__
 
 === test
 --- input
-- 1
+- http://www.lowreal.net/
 - 2
 -+ 2.1
 -+ 2.2
 - 3
 --- expected
 <ul>
-    <li>1</li>
+    <li><a href="http://www.lowreal.net/">http://www.lowreal.net/</a></li>
     <li>2
         <ol>
             <li>2.1</li>
@@ -73,6 +73,18 @@ __END__
 <dl>
     <dt>foo</dt>
     <dd>bar</dd>
+    <dt>baz</dt>
+    <dd>piyo</dd>
+</dl>
+
+=== test
+--- input
+:foo:http://www.lowreal.net/
+:baz:piyo
+--- expected
+<dl>
+    <dt>foo</dt>
+    <dd><a href="http://www.lowreal.net/">http://www.lowreal.net/</a></dd>
     <dt>baz</dt>
     <dd>piyo</dd>
 </dl>

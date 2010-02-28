@@ -42,13 +42,12 @@ sub as_struct {
 
 sub as_html {
     my ($self, %opts) = @_;
-    $Text::HatenaX::Node::INLINE->use;
 
     my $ret = "<dl>\n";
     for my $e (@{ $self->as_struct }) {
         $ret .= sprintf("<%s>%s</%s>\n",
             $e->{name},
-            $Text::HatenaX::Node::INLINE->new(%opts)->format(join("", @{ $e->{children} })),
+            $self->inline(join("", @{ $e->{children} }), %opts),
             $e->{name}
         );
     }

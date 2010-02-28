@@ -17,6 +17,13 @@ sub new {
 
 sub children { $_[0]->{children} };
 
+sub inline {
+    my ($self, $text, %opts) = @_;
+    $INLINE->use or die $@;
+    $text =~ s{^\n}{}g;
+    $text = $INLINE->new(%opts)->format($text);
+}
+
 sub as_html {
     my ($self, %opts) = @_;
     my $ret = "";
@@ -40,9 +47,7 @@ sub as_html {
 ## NOT COMPATIBLE WITH Hatena Syntax
 sub as_html_paragraph {
     my ($self, $text, %opts) = @_;
-    $INLINE->use or die $@;
-    $text =~ s{^\n}{}g;
-    $text = $INLINE->new(%opts)->format($text);
+    $text = $self->inline($text, %opts);
 
     if ($opts{stopp}) {
         $text;

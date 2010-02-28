@@ -62,7 +62,7 @@ sub _as_html {
         if (ref($child)) {
             $ret .= $self->_as_html($child, %opts);
         } else {
-            $ret .= $child;
+            $ret .= $self->inline($child, %opts);
         }
     }
     $ret .= "</" . $obj->{name} . ">\n";

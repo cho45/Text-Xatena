@@ -16,6 +16,45 @@ sub parse {
     }
 }
 
+sub as_struct {
+    my ($self) = @_;
+    my $ret = [];
+    my $children = $self->children;
+
+    for my $line (@$children) {
+        my $row = [];
+        for my $col (split /\|/, $line) {
+            my ($th, $content) = ($col =~ /^(\*)?(.*)$/);
+            push @$row, +{
+                name => ($th ? 'th' : 'td'),
+                children => [ $content ],
+            };
+        }
+        shift @$row;
+        push @$ret, $row;
+    }
+
+    $ret;
+}
+
+sub as_html {
+    my ($self, %opts) = @_;
+    my $ret  = "<table>\n";
+    for my $row (@{ $self->as_struct }) {
+        $ret .= "<tr>\n";
+        for my $col (@$row) {
+            $ret .= sprintf("<%s>%s</%s>\n",
+                $col->{name},
+                $self->inline(join("", @{ $col->{children} }), %opts),
+                $col->{name}
+            );
+        }
+        $ret .= "</tr>\n";
+    }
+    $ret .= "</table>\n";
+    $ret;
+}
+
 
 1;
 __END__
