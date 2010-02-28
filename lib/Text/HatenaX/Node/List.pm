@@ -57,7 +57,7 @@ sub as_html {
 
 sub _as_html {
     my ($self, $obj, %opts) = @_;
-    my $ret = "<" . $obj->{name} . ">\n";
+    my $ret = "<" . $obj->{name} . ">";
     for my $child (@{ $obj->{children} }) {
         if (ref($child)) {
             $ret .= $self->_as_html($child, %opts);
