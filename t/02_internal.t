@@ -138,6 +138,7 @@ EOS
 same $res, {
 	children => [
 		{
+			lang => '',
 			children => [
 				q{
 foobar
