@@ -52,6 +52,11 @@ sub _format {
 }
 
 match qr{(<a[^>]+>[\s\S]*?</a>)}i => sub {
+    my ($self, $anchor) = @_;
+    $anchor;
+};
+
+match qr{(<[^>]+>)}i => sub {
     my ($self, $tag) = @_;
     $tag;
 };
@@ -76,7 +81,7 @@ match qr<\[((?:https?|ftp)://[^\s:]+)(:(?:title(?:=([^[]+))?|barcode))?\]>i => s
     }
 };
 
-match qr<\[?((?:https?|ftp):[^\s:]+)\]?>i => sub {
+match qr<\[?((?:https?|ftp):[^\s:<>]+)\]?>i => sub {
     my ($self, $uri) = @_;
     sprintf('<a href="%s">%s</a>',
         $uri,

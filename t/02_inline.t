@@ -75,3 +75,26 @@ Foo bar
 http://example.com/
 </p>
 
+=== test
+--- input
+<strong>http://example.com/</strong>
+--- expected
+<p>
+<strong>
+	<a href="http://example.com/">
+	http://example.com/
+	</a>
+</strong>
+</p>
+
+=== test
+--- input
+<q cite="http://example.com/">http://example.com/</q>
+--- expected
+<p>
+<q cite="http://example.com/">
+	<a href="http://example.com/">
+	http://example.com/
+	</a>
+</q>
+</p>
