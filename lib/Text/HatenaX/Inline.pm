@@ -11,7 +11,13 @@ sub inlines {
     my ($caller) = @_;
     $caller = ref($caller) || $caller;
     no strict 'refs';
-    ${$caller.'::_inlines'} ||= [];
+    ${$caller.'::_inlines'} ||= do {
+        my $parents = [];
+        for my $isa (@{$caller.'::ISA'}) {
+            push @$parents, @{ $isa->inlines };
+        }
+        $parents;
+    };
 }
 
 sub match ($$) { ## no critic

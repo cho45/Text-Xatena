@@ -5,6 +5,9 @@ use lib 't/lib';
 use Test::More;
 use Text::HatenaX;
 use Encode;
+use Text::HatenaX::Test;
+
+plan tests => 2;
 
 sub u8 ($) {
     decode_utf8(shift);
@@ -24,16 +27,15 @@ subtest "basic" => sub {
 
 subtest "replace inline" => sub {
     my $thx = Text::HatenaX->new;
-    is $thx->format('TEST'), "<p>TEST</p>\n";
+    is_html $thx->format('TEST'), "<p>TEST</p>";
     {
         local $Text::HatenaX::Node::INLINE = "Text::HatenaX::Test::MyInline";
-        is $thx->format('TEST'), "<p>XXXX</p>\n";
+        is_html $thx->format('TEST'), "<p>XXXX</p>";
+        is_html $thx->format('http://example.com/'), '<p><a href="http://example.com/">http://example.com/</a></p>';
     };
-    is $thx->format('TEST'), "<p>TEST</p>\n";
+    is_html $thx->format('TEST'), "<p>TEST</p>";
 
     done_testing;
 };
 
-
-done_testing;
 

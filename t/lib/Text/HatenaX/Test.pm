@@ -13,7 +13,7 @@ filters {
     expected => [qw/chomp/],
 };
 
-our @EXPORT = qw(run_html);
+our @EXPORT = qw(run_html is_html);
 
 sub thx ($);
 sub html ($);
@@ -22,15 +22,18 @@ sub run_html {
     run {
         my ($block) = @_;
         my $input = $block->input;
-        my $expected = html $block->expected;
-        my $got = html thx $input;
-        is_deeply($got, $expected, $block->name) or warn sprintf("expected:\n%s\n\n%s\ngot:\n%s\n\n%s\n",
-            scalar $block->expected,
-            Dumper $expected,
-            scalar thx($input),
-            Dumper $got,
-        );
+        my $expected = $block->expected;
+        my $got = thx $input;
+        is_html($got, $expected, $block->name);
     }
+}
+
+sub is_html ($$;$) {
+    my ($got, $expected, $desc) = @_;
+    is_deeply(html($got), html($expected), $desc) or warn sprintf("expected:\n%s\ngot:\n%s\n",
+        scalar $expected,
+        scalar $got,
+    );
 }
 
 sub thx ($) {
