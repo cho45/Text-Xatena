@@ -78,3 +78,14 @@ bar
 <p>bar</p>
 </div>
 
+
+=== test
+--- input
+* http://example.com/
+foo
+--- expected
+<div class="section">
+<h3><a href="http://example.com/">http://example.com/</a></h3>
+<p>foo</p>
+</div>
+

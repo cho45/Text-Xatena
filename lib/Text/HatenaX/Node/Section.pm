@@ -38,7 +38,7 @@ sub as_html {
     sprintf("%s<h%d>%s</h%d>\n%s\n%s",
         $BEGINNING,
         $level,
-        $self->title,
+        $self->inline($self->title),
         $level,
         $self->SUPER::as_html(%opts),
         $ENDOFNODE
