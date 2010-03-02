@@ -89,3 +89,31 @@ __END__
     <dd>piyo</dd>
 </dl>
 
+=== test
+--- input
+:foo:http://www.lowreal.net/
+:baz:piyo
+--- expected
+<dl>
+    <dt>foo</dt>
+    <dd><a href="http://www.lowreal.net/">http://www.lowreal.net/</a></dd>
+    <dt>baz</dt>
+    <dd>piyo</dd>
+</dl>
+
+=== test
+--- input
+:foo
+::http://www.lowreal.net/
+:baz
+::piyo
+::piyo
+--- expected
+<dl>
+    <dt>foo</dt>
+    <dd><a href="http://www.lowreal.net/">http://www.lowreal.net/</a></dd>
+    <dt>baz</dt>
+    <dd>piyo</dd>
+    <dd>piyo</dd>
+</dl>
+

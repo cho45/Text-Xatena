@@ -19,6 +19,7 @@ sub parse {
     }
 }
 
+## NOT COMPATIBLE WITH Hatena Syntax
 sub as_struct {
     my ($self) = @_;
     my $ret = [];
@@ -26,15 +27,22 @@ sub as_struct {
     my $children = $self->children;
 
     for my $line (@$children) {
-        my ($title, $description) = ($line =~ /^:([^:]+)(?::(.*))?$/);
-        push @$ret, +{
-            name => 'dt',
-            children => [ $title ],
-        };
-        push @$ret, +{
-            name => 'dd',
-            children => [ $description ],
-        };
+        if (my ($description) = ($line =~ /^::(.+)/)) {
+            push @$ret, +{
+                name => 'dd',
+                children => [ $description ],
+            };
+        } else {
+            my ($title, $description) = ($line =~ /^:([^:]+)(?::(.*))?$/);
+            push @$ret, +{
+                name => 'dt',
+                children => [ $title ],
+            };
+            push @$ret, +{
+                name => 'dd',
+                children => [ $description ],
+            } if $description;
+        }
     }
 
     $ret;
