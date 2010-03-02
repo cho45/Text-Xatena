@@ -50,3 +50,32 @@ ok?
     <p>ok?</p>
 </div>
 
+
+=== test
+--- input
+>||
+<!--
+test
+-->
+||<
+
+--- expected
+<pre class="code">
+&lt;!--
+test
+--&gt;
+</pre>
+
+=== test
+--- input
+<!--
+
+>||
+test
+||<
+
+-->
+
+--- expected
+<!-- -->
+
