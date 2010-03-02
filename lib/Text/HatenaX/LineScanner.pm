@@ -32,7 +32,7 @@ sub scan_until {
         push @$ret, $self->current;
         $self->{line}++;
     }
-    push @$ret, $self->matched->[0];
+    push @$ret, $self->matched->[0] if $self->matched;
     wantarray? @$ret : $ret;
 }
 

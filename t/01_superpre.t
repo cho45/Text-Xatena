@@ -57,3 +57,15 @@ test
 test
 test
 </pre>
+
+=== test
+--- input
+>|perl|
+test
+test
+||,
+--- expected
+<pre class="code lang-perl">
+test
+test
+</pre>
