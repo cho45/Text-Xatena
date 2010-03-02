@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use base qw(Text::HatenaX::Node);
 
-sub beginning { qr/^>>$/ };
+sub beginning { qr/^>(.*?)>$/ };
 sub endofnode { qr/^<<$/ };
 
 sub parse {
@@ -26,7 +26,14 @@ sub parse {
 
 sub as_html {
     my ($self, %opts) = @_;
-    '<blockquote>' . $self->SUPER::as_html(%opts) . '</blockquote>';
+    if ($self->{beginning}->[1]) {
+        sprintf('<blockquote cite="%s">%s</blockquote>',
+            $self->{beginning}->[1],
+            $self->SUPER::as_html(%opts)
+        );
+    } else {
+        '<blockquote>' . $self->SUPER::as_html(%opts) . '</blockquote>';
+    }
 }
 
 1;

@@ -36,3 +36,13 @@ quote2
     </blockquote>
 </blockquote>
 
+=== test
+--- input
+>http://example.com/>
+quote
+<<
+--- expected
+<blockquote cite="http://example.com/">
+	<p>quote</p>
+</blockquote>
+
