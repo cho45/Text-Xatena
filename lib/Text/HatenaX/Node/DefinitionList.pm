@@ -9,9 +9,9 @@ use base qw(Text::HatenaX::Node);
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^:/)) {
+    if ($s->scan(qr/^:([^:]*):(.*)/)) {
         my $node = $class->new([ $s->matched->[0] ]);
-        until ($s->eos || !$s->scan(qr/^:/)) {
+        until ($s->eos || !$s->scan(qr/^:([^:]*):(.*)/)) {
             push @$node, $s->matched->[0];
         }
         push @$parent, $node;

@@ -103,9 +103,9 @@ __END__
 
 === test
 --- input
-:foo
+:foo:
 ::http://www.lowreal.net/
-:baz
+:baz:
 ::piyo
 ::piyo
 --- expected
@@ -116,4 +116,10 @@ __END__
     <dd>piyo</dd>
     <dd>piyo</dd>
 </dl>
+
+=== test
+--- input
+:foo
+--- expected
+<p>:foo</p>
 
