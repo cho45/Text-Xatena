@@ -44,5 +44,6 @@ quote
 --- expected
 <blockquote cite="http://example.com/">
 	<p>quote</p>
+	<cite><a href="http://example.com/">http://example.com/</a></cite>
 </blockquote>
 

@@ -27,9 +27,12 @@ sub parse {
 sub as_html {
     my ($self, %opts) = @_;
     if ($self->{beginning}->[1]) {
-        sprintf('<blockquote cite="%s">%s</blockquote>',
-            $self->{beginning}->[1],
-            $self->SUPER::as_html(%opts)
+        my $url = $self->{beginning}->[1];
+        sprintf('<blockquote cite="%s">%s<cite><a href="%s">%s</a></cite></blockquote>',
+            $url,
+            $self->SUPER::as_html(%opts),
+            $url,
+            $url,
         );
     } else {
         '<blockquote>' . $self->SUPER::as_html(%opts) . '</blockquote>';
