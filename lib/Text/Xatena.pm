@@ -66,7 +66,7 @@ __END__
 
 =head1 NAME
 
-Text::Xatena - Text-to-HTML converter with Hatena syntax.
+Text::Xatena - Text-to-HTML converter with Xatena syntax.
 
 =head1 SYNOPSIS
 
@@ -81,6 +81,161 @@ Text::Xatena is a text-to-html converter.
 
 Text::Xatena is comfortably to writing usual diary and blog,
 especially for programmers, writers treating long text.
+
+=head2 What is Xatena
+
+Xatena syntax is kind of Hatena syntax (implemented as Text::Hatena),
+but independent from Hatena services. For example, there is no id: notation.
+
+Most block level syntaxes are supported and more compatibility with Hatena::Diary
+than Text::Hatena.
+
+And don't support rare syntax or not applying to structured html.
+
+=head3 SYNTAX
+
+Basically, Xatena convert single line break to <br/> and
+double line break to <p> element except "Stop P" syntax.
+
+  fooo
+  bar
+
+  baz
+
+is convert to
+
+  <p>fooo<br/>bar</p>
+  <p>baz</p>
+
+This behavior is incompatible with Hatena,
+because I think most people like this.
+
+You can change this behavior by writing 1 line.
+
+=head4 Blockquote
+
+  >>
+  quoted text
+  foobar
+  <<
+
+is convert to
+
+  <blockquote>
+  <p>quoted text</p>
+  <p>foobar</p>
+  </blockquote>
+
+=head4 Pre
+
+  >|
+  pre <a href="">formatted</a>
+  |<
+
+is convert to
+
+  <pre>
+  pre <a href="">formatted</a>
+  </pre>
+
+=head4 Super pre
+
+  >||
+  super pre <a>
+  ||<
+
+  >|perl|
+  use Xatena;
+  ||<
+
+is convert to
+
+  <pre>
+  super pre &lt;a&gt;
+  </pre>
+
+  <pre class="code lang-perl">
+  use Xatena;
+  </pre>
+
+=head4 Stop P
+
+Stop insert p or br.
+
+  ><ins><
+  foobar
+  ></ins><
+
+is convert to
+
+  <ins>
+  <p>foobar</p>
+  </ins>
+
+=head4 Section
+
+Create structured sections by * following heading.
+
+  * head1
+
+  foobar
+
+  ** head2
+
+  *** head3
+
+
+=head4 List
+
+  - ul
+  - ul
+  -- ul
+  -- ul
+  --- ul
+  - ul
+
+  + ol
+  + ol
+  ++ ol
+  ++ ol
+  +++ ol
+  + ol
+
+  - ul
+  - ul
+  -+ ol
+  -+ ol
+  -+ ol
+  - ul
+
+=head4 Table
+
+  |*foo|*bar|*baz|
+  |test|test|test|
+  |test|test|test|
+
+=head4 Inline syntaxes
+
+=over 2
+
+=item Autolink http:// ftp:// mailto://
+
+  http://example.com/
+  ftp://example.com/
+  mailto:cho45@lowreal.net
+  [http://example.com/]
+
+  # using Xatena::Inline::Aggressive
+  [http://example.com/]
+  [http://example.com/:title] # auto retrieving from url
+  [http://example.com/:title=Foobar]
+  [http://example.com/:barcode] # show qrcode with google chart API
+
+=item Deter inline syntaxes syntax
+
+  []http://example.com/[]
+
+=back
 
 =head1 AUTHOR
 
