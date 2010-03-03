@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use lib 't/lib';
 use Text::HatenaX::Test;
+local $Text::HatenaX::Test::INLINE = "Text::HatenaX::Inline::Aggressive";
 
 plan tests => 1 * blocks;
 

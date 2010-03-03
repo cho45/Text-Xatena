@@ -6,15 +6,15 @@ use List::MoreUtils qw(any);
 
 sub import {
     my $class = shift;
-    my $callpkg = caller 0;
+    my $caller = caller(0);
     if (any { $_ eq '-Base' } @_) {
         no strict 'refs';
-        push @{"$callpkg\::ISA"}, $class;
+        push @{"$caller\::ISA"}, $class;
 
-         for my $method (qw/match/) {
-             no warnings 'redefine';
-             *{"$callpkg\::$method"} = \&{"$class\::$method"};
-         }
+        for my $method (qw/match/) {
+            no warnings 'redefine';
+            *{"$caller\::$method"} = \&{"$class\::$method"};
+        }
     }
 }
 
@@ -25,7 +25,8 @@ sub inlines {
     ${$caller.'::_inlines'} ||= do {
         my $parents = [];
         for my $isa (@{$caller.'::ISA'}) {
-            push @$parents, @{ $isa->inlines };
+            my $isa = $isa->inlines;
+            push @$parents, @$isa;
         }
         $parents;
     };
