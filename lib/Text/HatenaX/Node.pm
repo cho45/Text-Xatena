@@ -6,8 +6,6 @@ use overload
     '@{}' => \&children,
     fallback => 1;
 
-our $INLINE = "Text::HatenaX::Inline";
-
 sub new {
     my ($class, $children) = @_;
     bless {
@@ -19,9 +17,8 @@ sub children { $_[0]->{children} };
 
 sub inline {
     my ($self, $text, %opts) = @_;
-    $INLINE->use or die $@;
     $text =~ s{^\n}{}g;
-    $text = $INLINE->new(%opts)->format($text);
+    $text = $opts{inline}->format($text);
 }
 
 sub as_html {

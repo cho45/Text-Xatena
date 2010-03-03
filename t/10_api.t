@@ -6,6 +6,7 @@ use Test::More;
 use Text::HatenaX;
 use Encode;
 use Text::HatenaX::Test;
+use Text::HatenaX::Test::MyInline;
 
 plan tests => 2;
 
@@ -29,8 +30,7 @@ subtest "replace inline" => sub {
     my $thx = Text::HatenaX->new;
     is_html $thx->format('TEST'), "<p>TEST</p>";
     {
-        local $Text::HatenaX::Node::INLINE = "Text::HatenaX::Test::MyInline";
-        is_html $thx->format('TEST'), "<p>XXXX</p>";
+        is_html $thx->format('TEST', inline => Text::HatenaX::Test::MyInline->new), "<p>XXXX</p>";
         is_html $thx->format('http://example.com/'), '<p><a href="http://example.com/">http://example.com/</a></p>';
     };
     is_html $thx->format('TEST'), "<p>TEST</p>";

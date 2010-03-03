@@ -7,6 +7,7 @@ use UNIVERSAL::require;
 use Text::HatenaX::LineScanner;
 use Text::HatenaX::Node;
 use Text::HatenaX::Node::Root;
+use Text::HatenaX::Inline;
 
 our $VERSION = '0.01';
 
@@ -35,8 +36,9 @@ sub new {
 }
 
 sub format {
-    my ($self, $string) = @_;
-    $self->_parse($string)->as_html;
+    my ($self, $string, %opts) = @_;
+    $opts{inline} ||= Text::HatenaX::Inline->new;
+    $self->_parse($string)->as_html(%opts);
 }
 
 sub _parse {

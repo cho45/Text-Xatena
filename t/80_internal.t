@@ -166,13 +166,13 @@ EOS
 same $res, {
 	children => [
 		{
-			beginning => ['>>', 1],
-			endofnode => ['<<', 1],
+			beginning => ['>>', ''],
+			endofnode => ['<<', '1'],
 			children => [
 				"quote1",
 				{
-					beginning => ['>>', 1],
-					endofnode => ['<<', 1],
+					beginning => ['>>', ''],
+					endofnode => ['<<', '1'],
 					children => [
 						"quote2"
 					],
@@ -195,8 +195,8 @@ EOS
 same $res, {
 	children => [
 		{
-			beginning => ['>>', 1],
-			endofnode => ['<<', 1],
+			beginning => ['>>', ''],
+			endofnode => ['<<', '1'],
 			children => [
 				"quote1",
 				{
@@ -223,8 +223,8 @@ EOS
 same $res, {
 	children => [
 		{
-			beginning => ['>>', 1],
-			endofnode => ['<<', 1],
+			beginning => ['>>', ''],
+			endofnode => ['<<', '1'],
 			children => [
 				"quote1",
 				{
