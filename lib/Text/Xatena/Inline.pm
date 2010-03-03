@@ -1,8 +1,8 @@
-package Text::HatenaX::Inline;
+package Text::Xatena::Inline;
 
 use strict;
 use warnings;
-use Text::HatenaX::Inline::Base -Base;
+use Text::Xatena::Inline::Base -Base;
 
 match qr{(<a[^>]+>[\s\S]*?</a>)}i => sub {
     my ($self, $anchor) = @_;

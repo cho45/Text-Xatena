@@ -1,8 +1,8 @@
-package Text::HatenaX::Node::Section;
+package Text::Xatena::Node::Section;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
+use base qw(Text::Xatena::Node);
 
 our $BASE = 3;
 our $BEGINNING = qq{<div class="section">\n};

@@ -1,26 +1,26 @@
-package Text::HatenaX;
+package Text::Xatena;
 
 use strict;
 use warnings;
 use UNIVERSAL::require;
 
-use Text::HatenaX::LineScanner;
-use Text::HatenaX::Node;
-use Text::HatenaX::Node::Root;
-use Text::HatenaX::Inline;
+use Text::Xatena::LineScanner;
+use Text::Xatena::Node;
+use Text::Xatena::Node::Root;
+use Text::Xatena::Inline;
 
 our $VERSION = '0.01';
 
 our $SYNTAXES = [
-    'Text::HatenaX::Node::SuperPre',
-    'Text::HatenaX::Node::StopP',
-    'Text::HatenaX::Node::Blockquote',
-    'Text::HatenaX::Node::Pre',
-    'Text::HatenaX::Node::List',
-    'Text::HatenaX::Node::DefinitionList',
-    'Text::HatenaX::Node::Table',
-    'Text::HatenaX::Node::Section',
-    'Text::HatenaX::Node::Comment',
+    'Text::Xatena::Node::SuperPre',
+    'Text::Xatena::Node::StopP',
+    'Text::Xatena::Node::Blockquote',
+    'Text::Xatena::Node::Pre',
+    'Text::Xatena::Node::List',
+    'Text::Xatena::Node::DefinitionList',
+    'Text::Xatena::Node::Table',
+    'Text::Xatena::Node::Section',
+    'Text::Xatena::Node::Comment',
 ];
 
 sub new {
@@ -37,15 +37,15 @@ sub new {
 
 sub format {
     my ($self, $string, %opts) = @_;
-    $opts{inline} ||= Text::HatenaX::Inline->new;
+    $opts{inline} ||= Text::Xatena::Inline->new;
     $self->_parse($string)->as_html(%opts);
 }
 
 sub _parse {
     my ($self, $string) = @_;
 
-    my $s     = Text::HatenaX::LineScanner->new($string);
-    my $root  = Text::HatenaX::Node::Root->new ;
+    my $s     = Text::Xatena::LineScanner->new($string);
+    my $root  = Text::Xatena::Node::Root->new ;
     my $stack = [ $root ];
     loop: until ($s->eos) {
         my $parent   = $stack->[-1];
@@ -66,20 +66,20 @@ __END__
 
 =head1 NAME
 
-Text::HatenaX - Text-to-HTML converter with Hatena syntax.
+Text::Xatena - Text-to-HTML converter with Hatena syntax.
 
 =head1 SYNOPSIS
 
-  use Text::HatenaX;
+  use Text::Xatena;
 
-  my $thx = Text::HatenaX->new;
-  Text::HatenaX->format($string);
+  my $thx = Text::Xatena->new;
+  Text::Xatena->format($string);
 
 =head1 DESCRIPTION
 
-Text::HatenaX is a text-to-html converter.
+Text::Xatena is a text-to-html converter.
 
-Text::HatenaX is comfortably to writing usual diary and blog,
+Text::Xatena is comfortably to writing usual diary and blog,
 especially for programmers, writers treating long text.
 
 =head1 AUTHOR

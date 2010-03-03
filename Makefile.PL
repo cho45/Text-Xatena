@@ -1,6 +1,6 @@
 use inc::Module::Install;
-name 'Text-HatenaX';
-all_from 'lib/Text/HatenaX.pm';
+name 'Text-Xatena';
+all_from 'lib/Text/Xatena.pm';
 
 requires $_ for (qw/ URI::Escape Exporter::Lite /);
 

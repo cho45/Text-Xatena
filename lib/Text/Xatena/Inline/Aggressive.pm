@@ -1,11 +1,11 @@
-package Text::HatenaX::Inline::Aggressive;
+package Text::Xatena::Inline::Aggressive;
 
 use strict;
 use warnings;
 use URI::Escape;
 use LWP::Simple qw($ua);
 use HTML::Entities;
-use Text::HatenaX::Inline -Base;
+use Text::Xatena::Inline -Base;
 
 sub cache { $_[0]->{cache} }
 

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use lib 't/lib';
-use Text::HatenaX::Test;
+use Text::Xatena::Test;
 
 plan tests => 1 * blocks;
 

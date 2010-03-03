@@ -1,11 +1,11 @@
-package Text::HatenaX::Node::DefinitionList;
+package Text::Xatena::Node::DefinitionList;
 
 use strict;
 use warnings;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
+use base qw(Text::Xatena::Node);
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;

@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 use lib 't/lib';
-use Text::HatenaX::Test;
+use Text::Xatena::Test;
 use Cache::MemoryCache;
-local $Text::HatenaX::Test::INLINE = "Text::HatenaX::Inline::Aggressive";
-local $Text::HatenaX::Test::INLINE_ARGS = [ cache => Cache::MemoryCache->new ];
+local $Text::Xatena::Test::INLINE = "Text::Xatena::Inline::Aggressive";
+local $Text::Xatena::Test::INLINE_ARGS = [ cache => Cache::MemoryCache->new ];
 
 plan tests => 1 * blocks;
 

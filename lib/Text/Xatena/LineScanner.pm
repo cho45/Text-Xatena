@@ -1,4 +1,4 @@
-package Text::HatenaX::LineScanner;
+package Text::Xatena::LineScanner;
 
 use strict;
 use warnings;

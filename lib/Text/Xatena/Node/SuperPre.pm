@@ -1,9 +1,9 @@
-package Text::HatenaX::Node::SuperPre;
+package Text::Xatena::Node::SuperPre;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
-use Text::HatenaX::Util;
+use base qw(Text::Xatena::Node);
+use Text::Xatena::Util;
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;

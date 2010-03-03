@@ -1,8 +1,8 @@
-package Text::HatenaX::Node::Table;
+package Text::Xatena::Node::Table;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
+use base qw(Text::Xatena::Node);
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;

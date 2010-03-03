@@ -1,4 +1,4 @@
-package Text::HatenaX::Node;
+package Text::Xatena::Node;
 
 use strict;
 use warnings;

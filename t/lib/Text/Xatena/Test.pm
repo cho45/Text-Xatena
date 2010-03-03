@@ -1,4 +1,4 @@
-package Text::HatenaX::Test;
+package Text::Xatena::Test;
 
 use strict;
 use warnings;
@@ -7,7 +7,7 @@ use HTML::Parser;
 use Data::Dumper;
 use UNIVERSAL::require;
 
-use Text::HatenaX;
+use Text::Xatena;
 
 filters {
     input => [qw/chomp/],
@@ -41,7 +41,7 @@ sub is_html ($$;$) {
 
 sub thx ($) {
     my ($str) = @_;
-    my $thx = Text::HatenaX->new;
+    my $thx = Text::Xatena->new;
     $INLINE->use if $INLINE;
     my $ret = $thx->format($str, inline => $INLINE ? $INLINE->new(@{ $INLINE_ARGS }) : undef );
     $ret;

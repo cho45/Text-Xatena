@@ -1,11 +1,11 @@
 use strict;
 use Test::More tests => 13;
-use Text::HatenaX;
+use Text::Xatena;
 use Data::Dumper;
 
 sub p ($) { warn Dumper shift }
 
-my $thx = Text::HatenaX->new;
+my $thx = Text::Xatena->new;
 my $res;
 sub same ($$) {
 	my ($got, $expected) = @_;

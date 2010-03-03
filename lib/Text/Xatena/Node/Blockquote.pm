@@ -1,8 +1,8 @@
-package Text::HatenaX::Node::Blockquote;
+package Text::Xatena::Node::Blockquote;
 
 use strict;
 use warnings;
-use base qw(Text::HatenaX::Node);
+use base qw(Text::Xatena::Node);
 
 sub beginning { qr/^>(.*?)>$/ };
 sub endofnode { qr/^<<$/ };

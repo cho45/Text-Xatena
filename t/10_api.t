@@ -3,10 +3,10 @@ use warnings;
 use lib 'lib';
 use lib 't/lib';
 use Test::More;
-use Text::HatenaX;
+use Text::Xatena;
 use Encode;
-use Text::HatenaX::Test;
-use Text::HatenaX::Test::MyInline;
+use Text::Xatena::Test;
+use Text::Xatena::Test::MyInline;
 
 plan tests => 2;
 
@@ -19,18 +19,18 @@ sub is_u8 ($;$) {
 }
 
 subtest "basic" => sub {
-    my $thx = Text::HatenaX->new;
-    isa_ok $thx, "Text::HatenaX";
+    my $thx = Text::Xatena->new;
+    isa_ok $thx, "Text::Xatena";
     ok $thx->format('foobar');
     is_u8 $thx->format(u8 'あああ'), 'format takes utf8 strings';
     done_testing;
 };
 
 subtest "replace inline" => sub {
-    my $thx = Text::HatenaX->new;
+    my $thx = Text::Xatena->new;
     is_html $thx->format('TEST'), "<p>TEST</p>";
     {
-        is_html $thx->format('TEST', inline => Text::HatenaX::Test::MyInline->new), "<p>XXXX</p>";
+        is_html $thx->format('TEST', inline => Text::Xatena::Test::MyInline->new), "<p>XXXX</p>";
         is_html $thx->format('http://example.com/'), '<p><a href="http://example.com/">http://example.com/</a></p>';
     };
     is_html $thx->format('TEST'), "<p>TEST</p>";

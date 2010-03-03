@@ -4,7 +4,7 @@ require "shipit"
 require "pathname"
 
 makefilepl = Pathname.new("Makefile.PL").read
-mainmodule = Pathname.new("lib/Text/HatenaX.pm").read
+mainmodule = Pathname.new("lib/Text/Xatena.pm").read
 
 NAME        = makefilepl[/name '([^']+)';/, 1]
 VERS        = mainmodule[/our \$VERSION = '([^']+)';/, 1]
