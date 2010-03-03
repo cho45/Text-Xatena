@@ -23,14 +23,20 @@ match qr<\[((?:https?|ftp)://[^\s:]+)(:(?:title(?:=([^[]+))?|barcode))?\]>i => s
             if (!$title) {
                 $title = $self->cache->get($uri);
                 if (not defined $title) {
-                    my $res = $ua->get($uri);
-                    ($title) = ($res->content =~ qr|<title[^>]*>([^<]*)</title>|i);
-                    $self->cache->set($uri, $title, "30 days");
+                    eval {
+                        my $res = $ua->get($uri);
+                        ($title) = ($res->content =~ qr|<title[^>]*>([^<]*)</title>|i);
+                        $self->cache->set($uri, $title, "30 days");
+                    };
+                    if ($@) {
+                        warn $@;
+                    }
                 }
             }
+            $title ||= $uri;
             return sprintf('<a href="%s">%s</a>',
                 $uri,
-                encode_entities($title)
+                encode_entities(decode_entities($title))
             );
         }
     } else {
