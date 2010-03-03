@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use lib 't/lib';
 use Text::HatenaX::Test;
+local $Text::HatenaX::Test::INLINE = "Text::HatenaX::Inline::Aggressive";
 
 plan tests => 1 * blocks;
 
@@ -47,6 +48,24 @@ cho45@lowreal.net
 <a href="http://example.com/">
 http://example.com/
 </a>
+</p>
+
+=== test
+--- input
+[http://example.com/:title=Foo bar]
+--- expected
+<p>
+<a href="http://example.com/">
+Foo bar
+</a>
+</p>
+
+=== test
+--- input
+[http://example.com/:barcode]
+--- expected
+<p>
+<img src="http://chart.apis.google.com/chart?chs=150x150&cht=qr&chl=http%3A%2F%2Fexample.com%2F" title="http://example.com/"/>
 </p>
 
 === test
