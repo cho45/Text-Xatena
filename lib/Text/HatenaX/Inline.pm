@@ -3,53 +3,7 @@ package Text::HatenaX::Inline;
 use strict;
 use warnings;
 use URI::Escape;
-use Exporter::Lite;
-
-our @EXPORT_OK = qw(match);
-
-sub inlines {
-    my ($caller) = @_;
-    $caller = ref($caller) || $caller;
-    no strict 'refs';
-    ${$caller.'::_inlines'} ||= do {
-        my $parents = [];
-        for my $isa (@{$caller.'::ISA'}) {
-            push @$parents, @{ $isa->inlines };
-        }
-        $parents;
-    };
-}
-
-sub match ($$) { ## no critic
-    my ($regexp, $block) = @_;
-    my $pkg = caller(0);
-    push @{ $pkg->inlines }, { regexp => $regexp, block => $block };
-}
-
-sub new {
-    my ($class, %opts) = @_;
-    bless {
-        %opts
-    }, $class;
-}
-
-sub format {
-    my ($self, $text) = @_;
-    my $re = join("|", map { $_->{regexp} } @{ $self->inlines });
-    $text =~ s{($re)}{$self->_format($1)}eg;
-    $text;
-}
-
-sub _format {
-    my ($self, $string) = @_;
-    for my $inline (@{ $self->inlines }) {
-        if (my @matched = ($string =~ $inline->{regexp})) {
-            $string = $inline->{block}->($self, @matched);
-            last;
-        }
-    }
-    $string;
-}
+use Text::HatenaX::Inline::Base -Base;
 
 match qr{(<a[^>]+>[\s\S]*?</a>)}i => sub {
     my ($self, $anchor) = @_;

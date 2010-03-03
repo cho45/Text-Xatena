@@ -1,8 +1,7 @@
 package Text::HatenaX::Test::MyInline;
 use strict;
 use warnings;
-use Text::HatenaX::Inline qw(match);
-use base qw(Text::HatenaX::Inline);
+use Text::HatenaX::Inline::Base -Base;
 
 match qr{\@([a-z0-9]+)} => sub {
     my ($self, $twitter_id) = @_;
