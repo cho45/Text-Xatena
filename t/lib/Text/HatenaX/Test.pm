@@ -16,6 +16,7 @@ filters {
 
 our @EXPORT = qw(run_html is_html);
 our $INLINE = "";
+our $INLINE_ARGS = [];
 
 sub thx ($);
 sub html ($);
@@ -42,7 +43,7 @@ sub thx ($) {
     my ($str) = @_;
     my $thx = Text::HatenaX->new;
     $INLINE->use if $INLINE;
-    my $ret = $thx->format($str, inline => $INLINE ? $INLINE->new : undef );
+    my $ret = $thx->format($str, inline => $INLINE ? $INLINE->new(@{ $INLINE_ARGS }) : undef );
     $ret;
 }
 

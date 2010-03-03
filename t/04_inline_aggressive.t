@@ -2,7 +2,9 @@ use strict;
 use warnings;
 use lib 't/lib';
 use Text::HatenaX::Test;
+use Cache::MemoryCache;
 local $Text::HatenaX::Test::INLINE = "Text::HatenaX::Inline::Aggressive";
+local $Text::HatenaX::Test::INLINE_ARGS = [ cache => Cache::MemoryCache->new ];
 
 plan tests => 1 * blocks;
 
@@ -98,4 +100,14 @@ http://example.com/
 	http://example.com/
 	</a>
 </q>
+</p>
+
+=== test
+--- input
+[http://example.com/:title]
+--- expected
+<p>
+<a href="http://example.com/">
+Example Web Page
+</a>
 </p>
