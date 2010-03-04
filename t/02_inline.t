@@ -80,3 +80,13 @@ http://example.com/
 	</a>
 </q>
 </p>
+
+=== test
+--- input
+[http://example.com:80/]
+--- expected
+<p>
+<a href="http://example.com:80/">
+http://example.com:80/
+</a>
+</p>

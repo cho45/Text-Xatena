@@ -9,7 +9,7 @@ use Text::Xatena::Inline -Base;
 
 sub cache { $_[0]->{cache} }
 
-match qr<\[((?:https?|ftp)://[^\s:]+)(:(?:title(?:=([^[]+))?|barcode))?\]>i => sub {
+match qr<\[((?:https?|ftp)://[^\s:]+(?::\d+)?[^\s:]+)(:(?:title(?:=([^[]+))?|barcode))?\]>i => sub {
     my ($self, $uri, $opt, $title) = @_;
 
     if ($opt) {

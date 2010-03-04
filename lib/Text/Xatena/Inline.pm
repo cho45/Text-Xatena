@@ -19,7 +19,7 @@ match qr{\[\]([\s\S]*?)\[\]}i => sub {
     $unlink;
 };
 
-match qr<\[?((?:https?|ftp):(?!([^\s:<>\]]+):(?:barcode|title))([^\s:<>\]]+))\]?>i => sub {
+match qr<\[?((?:https?|ftp):(?!([^\s<>\]]+?):(?:barcode|title))([^\s<>\]]+))\]?>i => sub {
     my ($self, $uri) = @_;
     sprintf('<a href="%s">%s</a>',
         $uri,
