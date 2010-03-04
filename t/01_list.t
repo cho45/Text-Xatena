@@ -123,3 +123,9 @@ __END__
 --- expected
 <p>:foo</p>
 
+=== test
+--- input
+ -foo
+--- expected
+<p>-foo</p>
+
