@@ -25,6 +25,13 @@ sub scan {
     }
 }
 
+sub next {
+    my ($self) = @_;
+    my $ret = $self->current;
+    $self->{line}++;
+    $ret;
+}
+
 sub scan_until {
     my ($self, $regexp) = @_;
     my $ret = [];

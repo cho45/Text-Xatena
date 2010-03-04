@@ -55,7 +55,7 @@ sub _parse {
         }
 
         # plain lines
-        push @$parent, $s->scan(qr//);
+        push @$parent, $s->next;
     }
 
     $root;
