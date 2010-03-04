@@ -94,8 +94,8 @@ And don't support rare syntax or not applying to structured html.
 
 =head3 SYNTAX
 
-Basically, Xatena convert single line break to <br/> and
-double line break to <p> element except "Stop P" syntax.
+Basically, Xatena convert single line breaks to <br/> and
+double line breaks to <p> element except "Stop P" syntax.
 
   fooo
   bar
@@ -116,6 +116,7 @@ You can change this behavior by writing 1 line.
 
   >>
   quoted text
+
   foobar
   <<
 
@@ -207,6 +208,15 @@ Create structured sections by * following heading.
   -+ ol
   -+ ol
   - ul
+
+  :definition:description
+  :definition:description
+
+
+  :definition:
+  :: description
+  :definition:
+  :: description
 
 =head4 Table
 
