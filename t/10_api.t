@@ -8,7 +8,7 @@ use Encode;
 use Text::Xatena::Test;
 use Text::Xatena::Test::MyInline;
 
-plan tests => 2;
+plan tests => 3;
 
 sub u8 ($) {
     decode_utf8(shift);
@@ -34,6 +34,14 @@ subtest "replace inline" => sub {
         is_html $thx->format('http://example.com/'), '<p><a href="http://example.com/">http://example.com/</a></p>';
     };
     is_html $thx->format('TEST'), "<p>TEST</p>";
+
+    done_testing;
+};
+
+subtest "replace block" => sub {
+    my $thx = Text::Xatena->new(syntaxes => [
+    ]);
+    is_html $thx->format(">>\nquote\n<<"), "<p>>><br />quote<br /><<</p>";
 
     done_testing;
 };

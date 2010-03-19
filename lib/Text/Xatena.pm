@@ -26,13 +26,17 @@ our $SYNTAXES = [
 sub new {
     my ($class, %opts) = @_;
 
-    for my $pkg (@$SYNTAXES) {
+    $opts{syntaxes} ||= $SYNTAXES;
+
+    my $self = bless {
+        %opts
+    }, $class;
+
+    for my $pkg (@{ $self->{syntaxes} }) {
         $pkg->use or die $@;
     }
 
-    bless {
-        %opts
-    }, $class;
+    $self;
 }
 
 sub format {
@@ -83,7 +87,7 @@ sub _parse {
     loop: until ($s->eos) {
         my $parent   = $stack->[-1];
 
-        for my $pkg (@$SYNTAXES) {
+        for my $pkg (@{ $self->{syntaxes} }) {
             $pkg->parse($s, $parent, $stack) and next loop;
         }
 
