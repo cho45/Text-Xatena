@@ -9,10 +9,10 @@ requires 'LWP::Simple';
 requires 'UNIVERSAL::require';
 requires 'List::MoreUtils';
 
-build_requires 'Test::More';
-build_requires 'HTML::Parser';
-build_requires 'Cache::MemoryCache';
+test_requires 'Test::More';
+test_requires 'HTML::Parser';
+test_requires 'Cache::MemoryCache';
 
 use_test_base;
-auto_include;
+# auto_include;
 WriteAll;

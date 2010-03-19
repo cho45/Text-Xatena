@@ -1,1 +1,8 @@
 *.tmp
+Makefile
+META.yml
+blib
+pm_to_blib
+inc/Cache
+inc/HTML
+Makefile.old
