@@ -8,6 +8,7 @@ use Data::Dumper;
 use UNIVERSAL::require;
 
 use Text::Xatena;
+our $options = {};
 
 filters {
     input => [qw/chomp/],
@@ -41,7 +42,7 @@ sub is_html ($$;$) {
 
 sub thx ($) {
     my ($str) = @_;
-    my $thx = Text::Xatena->new;
+    my $thx = Text::Xatena->new(%{ $options });
     $INLINE->use if $INLINE;
     my $ret = $thx->format($str, inline => $INLINE ? $INLINE->new(@{ $INLINE_ARGS }) : undef );
     $ret;

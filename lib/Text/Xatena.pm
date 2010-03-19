@@ -37,8 +37,41 @@ sub new {
 
 sub format {
     my ($self, $string, %opts) = @_;
+    if ($opts{hatena_compatible} || $self->{hatena_compatible}) {
+        $self->_format_hatena_compat($string, %opts);
+    } else {
+        $self->_format($string, %opts);
+    }
+}
+
+sub _format {
+    my ($self, $string, %opts) = @_;
     $opts{inline} ||= Text::Xatena::Inline->new;
-    $self->_parse($string)->as_html(%opts);
+    $self->_parse($string)->as_html(
+        %opts
+    );
+}
+
+sub _format_hatena_compat {
+    my ($self, $string, %opts) = @_;
+
+    no warnings "once", "redefine";
+    local $Text::Xatena::Node::Section::BEGINNING = "";
+    local $Text::Xatena::Node::Section::ENDOFNODE = "";
+    local *Text::Xatena::Node::as_html_paragraph = sub {
+        my ($self, $text, %opts) = @_;
+        $text =~ s{^\n}{}g;
+        if ($opts{stopp}) {
+            $text;
+        } else {
+            "<p>" . join("</p>\n<p><br /></p>\n<p>", map { join("</p>\n<p>", split /\n+/) } split(/\n\n\n/, $text)) . "</p>\n";
+        }
+    };
+
+    $opts{inline} ||= Text::Xatena::Inline->new;
+    $self->_parse($string)->as_html(
+        %opts
+    );
 }
 
 sub _parse {
