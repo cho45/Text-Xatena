@@ -117,7 +117,7 @@ Text::Xatena - Text-to-HTML converter with Xatena syntax.
       inline => Text::Xatena::Inline::Aggressive->new(cache => Cache::MemoryCache->new)
   );
 
-Customizing inline format rule
+Customizing inline formating rule
 
   Text::Xatena->new->format($string,
       inline => MyInline->new
@@ -137,6 +137,7 @@ Customizing inline format rule
   };
   
   1;
+
 =head1 DESCRIPTION
 
 Text::Xatena is a text-to-html converter.
@@ -146,7 +147,7 @@ especially for programmers, writers treating long text.
 
 =head2 What is Xatena
 
-Xatena syntax is similar to Hatena syntax (implemented as Text::Hatena),
+Xatena syntax is similar to Hatena syntax (implemented as L<Text::Hatena|Text::Hatena>),
 but independent from Hatena services and more expandability.
 
 Most block level syntaxes are supported and more compatibility with Hatena::Diary
@@ -437,7 +438,7 @@ Big differents:
 
 =item 1. Hatena::Diary syntax converts single break to C<<p>> block but Xatena converts it to C<<br/>>.
 
-=item 2. Hatena::Diary syntax converts * (heading notation) to simple <hn> element but Xatena converts it to <div class="section"><hn></hn></div>
+=item 2. Hatena::Diary syntax converts * (heading notation) to simple C<<hn>> element but Xatena converts it to C<<div class="section">>
 
 =item 3. Xatena support multiline definition list
 
@@ -453,7 +454,7 @@ cho45 E<lt>cho45@lowreal.netE<gt>
 
 =head1 SEE ALSO
 
-L<Text::Hatena>
+L<Text::Hatena|Text::Hatena>
 
 L<http://hatenadiary.g.hatena.ne.jp/keyword/%E3%81%AF%E3%81%A6%E3%81%AA%E8%A8%98%E6%B3%95%E4%B8%80%E8%A6%A7>>
 
