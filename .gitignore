@@ -3,7 +3,6 @@ Makefile
 META.yml
 blib
 pm_to_blib
-inc/Cache
-inc/HTML
+inc
 Makefile.old
 MANIFEST.bak
