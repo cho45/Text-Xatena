@@ -41,6 +41,7 @@ Rakefile
 README
 sketch/hatena_compatible.pl
 t/00_compile.t
+t/00_util.t
 t/01_blockquote.t
 t/01_comment.t
 t/01_list.t

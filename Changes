@@ -2,6 +2,8 @@
 
 	* 0.01
 	Released
+	* 0.02
+	Fix module dependency bug
 
 
 vim:ft=changelog:
