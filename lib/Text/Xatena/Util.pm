@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 our @EXPORT = qw(escape_html);
+use Exporter::Lite;
 
 my %escape = (
     '&' => '&amp;',
