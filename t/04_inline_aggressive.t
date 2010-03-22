@@ -3,8 +3,23 @@ use warnings;
 use lib 't/lib';
 use Text::Xatena::Test;
 use Cache::MemoryCache;
+use LWP::UserAgent;
+use LWP::Simple;
 local $Text::Xatena::Test::INLINE = "Text::Xatena::Inline::Aggressive";
 local $Text::Xatena::Test::INLINE_ARGS = [ cache => Cache::MemoryCache->new ];
+{
+    no warnings 'redefine';
+    *LWP::UserAgent::get = sub {
+        my ($self, $uri) = @_;
+        local $_ = $uri;
+        if (qr|http://example.com/|) {
+            HTTP::Response->new(200, "OK", [], "<title>Example Web Page</title>");
+        } else {
+            die "unknown url";
+        }
+    };
+};
+
 
 plan tests => 1 * blocks;
 
