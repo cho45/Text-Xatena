@@ -45,3 +45,14 @@ foobar <!-- secret -->
     <li>1</li>
 </ul>
 
+=== test inline comment
+--- input
+- baz <!-- foobar --> bar
+- 1
+
+--- expected
+<ul>
+    <li>baz <!-- --> bar</li>
+    <li>1</li>
+</ul>
+
