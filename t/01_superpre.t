@@ -69,3 +69,18 @@ test
 test
 test
 </pre>
+
+=== test
+--- input
+>||
+test
+test
+||<
+test
+--- expected
+<pre class="code">
+test
+test
+</pre>
+<p>test</p>
+

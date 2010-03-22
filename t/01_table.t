@@ -51,3 +51,30 @@ __END__
         <td>baz</td>
     </tr>
 </table>
+
+=== test
+--- input
+|*head|*head|*head|
+|foo|bar|baz|
+|foo|bar|baz|
+test
+--- expected
+<table>
+    <tr>
+        <th>head</th>
+        <th>head</th>
+        <th>head</th>
+    </tr>
+    <tr>
+        <td>foo</td>
+        <td>bar</td>
+        <td>baz</td>
+    </tr>
+    <tr>
+        <td>foo</td>
+        <td>bar</td>
+        <td>baz</td>
+    </tr>
+</table>
+<p>test</p>
+

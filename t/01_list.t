@@ -129,3 +129,31 @@ __END__
 --- expected
 <p>-foo</p>
 
+=== test
+--- input
+- 1
+- 2
+- 3
+test
+--- expected
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+<p>test</p>
+
+=== test
+--- input
+:foo:bar
+:baz:piyo
+test
+--- expected
+<dl>
+    <dt>foo</dt>
+    <dd>bar</dd>
+    <dt>baz</dt>
+    <dd>piyo</dd>
+</dl>
+<p>test</p>
+

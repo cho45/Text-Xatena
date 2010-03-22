@@ -47,3 +47,14 @@ quote
 	<cite><a href="http://example.com/">http://example.com/</a></cite>
 </blockquote>
 
+=== test
+--- input
+>>
+quote
+<<
+test
+--- expected
+<blockquote>
+<p>quote</p>
+</blockquote>
+<p>test</p>
