@@ -28,6 +28,15 @@ secret
 
 === test
 --- input
+<!-- secret -->
+foobar
+
+--- expected
+<!-- -->
+<p>foobar</p>
+
+=== test
+--- input
 foobar <!-- secret -->
 
 --- expected
@@ -55,4 +64,19 @@ foobar <!-- secret -->
     <li>baz <!-- --> bar</li>
     <li>1</li>
 </ul>
+
+=== test inline comment
+--- input
+>|
+test
+<!-- foobar -->
+test
+|<
+
+--- expected
+<pre>
+test
+<!-- -->
+test
+</pre>
 

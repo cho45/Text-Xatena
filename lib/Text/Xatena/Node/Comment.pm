@@ -6,10 +6,9 @@ use base qw(Text::Xatena::Node);
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^(.*)<!--.*(-->)?$/)) {
+    if ($s->scan(qr/^(.*)<!--.*?(-->)?$/)) {
         my $pre = $s->matched->[1];
         push @$parent, $pre;
-        
         unless ($s->matched->[2]) {
             $s->scan_until(qr/^-->$/);
         }
