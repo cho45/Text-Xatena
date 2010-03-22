@@ -9,6 +9,11 @@ match qr{(<a[^>]+>[\s\S]*?</a>)}i => sub {
     $anchor;
 };
 
+match qr{<!--.*-->} => sub {
+    my ($self) = @_;
+    '<!-- -->';
+};
+
 match qr{(<[^>]+>)}i => sub {
     my ($self, $tag) = @_;
     $tag;

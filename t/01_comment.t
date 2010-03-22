@@ -33,3 +33,15 @@ foobar <!-- secret -->
 --- expected
 <p>foobar</p>
 <!-- -->
+
+=== test
+--- input
+- <!-- foobar -->
+- 1
+
+--- expected
+<ul>
+    <li><!-- --></li>
+    <li>1</li>
+</ul>
+

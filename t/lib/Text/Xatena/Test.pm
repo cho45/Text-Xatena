@@ -7,6 +7,7 @@ use HTML::Parser;
 use Data::Dumper;
 use UNIVERSAL::require;
 
+use lib 'lib';
 use Text::Xatena;
 our $options = {};
 
