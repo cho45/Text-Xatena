@@ -9,7 +9,7 @@ use Text::Xatena::Node;
 use Text::Xatena::Node::Root;
 use Text::Xatena::Inline;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our $SYNTAXES = [
     'Text::Xatena::Node::SuperPre',

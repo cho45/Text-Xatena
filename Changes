@@ -2,6 +2,8 @@
 
 	* Fix comment syntax
 	* Fix test of aggressive (override LWP::get to pass tests)
+	* 0.03
+	Released
 
 2010-03-20  SATOH Hiroh <cho45@lowreal.net>
 
