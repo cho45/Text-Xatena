@@ -1,27 +1,331 @@
-This is Perl module Text::Xatena.
+NAME
+    Text::Xatena - Text-to-HTML converter with Xatena syntax.
 
-INSTALLATION
+SYNOPSIS
+      use Text::Xatena;
 
-Text::Xatena installation is straightforward. If your CPAN shell is set up,
-you should just be able to do
+      my $thx = Text::Xatena->new;
+      $thx->format($string);
 
-    % cpan Text::Xatena
+      # with some aggressive functions
+      $thx->format($string,
+          inline => Text::Xatena::Inline::Aggressive->new(cache => Cache::MemoryCache->new)
+      );
 
-Download it, unpack it, then build it as per the usual:
+    Customizing inline formating rule
 
-    % perl Makefile.PL
-    % make && make test
+      Text::Xatena->new->format($string,
+          inline => MyInline->new
+      );
 
-Then install it:
+      package MyInline;
+      use strict;
+      use warnings;
+      use Text::Xatena::Inline::Base -Base;
+  
+      match qr{\@([a-z0-9]+)} => sub {
+          my ($self, $twitter_id) = @_;
+          sprintf('<a href="http://twitter.com/%s">@%s</a>',
+              $twitter_id,
+              $twitter_id,
+          );
+      };
+  
+      1;
 
-    % make install
+DESCRIPTION
+    Text::Xatena is a text-to-html converter.
 
-DOCUMENTATION
+    Text::Xatena is comfortably to writing usual diary and blog, especially
+    for programmers, writers treating long text.
 
-Text::Xatena documentation is available as in POD. So you can do:
+  What is Xatena
+    Xatena syntax is similar to Hatena syntax (implemented as Text::Hatena),
+    but independent from Hatena services and more expandability.
 
-    % perldoc Text::Xatena
+    Most block level syntaxes are supported and more compatibility with
+    Hatena::Diary than Text::Hatena 0.20.
 
-to read the documentation online with your favorite pager.
+    And don't support rare syntax or what isn't to be done of syntax
+    formatter.
 
-cho45
+SYNTAX
+    Basically, Xatena convert single line breaks to "<br/"> and double line
+    breaks to "<p"> element except "Stop P" syntax.
+
+      fooo
+      bar
+
+      baz
+
+    is convert to
+
+      <p>fooo<br/>bar</p>
+      <p>baz</p>
+
+  Blockquote
+      >>
+      quoted text
+
+      foobar
+      <<
+
+    is convert to
+
+      <blockquote>
+      <p>quoted text</p>
+      <p>foobar</p>
+      </blockquote>
+
+   with cite
+      >http://example.com/>
+      foobar
+      <<
+
+    is convert to
+
+      <blockquote cite="http://example.com/">
+        <p>quote</p>
+        <cite><a href="http://example.com/">http://example.com/</a></cite>
+      </blockquote>
+
+  Pre
+      >|
+      pre <a href="">formatted</a>
+      |<
+
+    is convert to
+
+      <pre>
+      pre <a href="">formatted</a>
+      </pre>
+
+  Super pre
+      >||
+      super pre <a>
+      ||<
+
+    is convert to
+
+      <pre>
+      super pre &lt;a&gt;
+      </pre>
+
+   with lang
+      >|perl|
+      use Text::Xatena;
+      ||<
+
+    is convert to
+
+      <pre class="code lang-perl">
+      use Text::Xatena;
+      </pre>
+
+  Stop P
+    Stop insert p or br.
+
+      ><blockquote>
+      <p>
+      hogehoge br
+      </p>
+      </blockquote><
+
+    is convert to
+
+      <blockquote>
+      <p>
+      hogehoge br
+      </p>
+      </blockquote><
+
+   with custom block level element
+      ><ins><
+      foobar
+      ></ins><
+
+    is convert with auto inserting p to
+
+      <ins>
+      <p>foobar</p>
+      </ins>
+
+  Section
+    Create structured sections by * following heading.
+
+      * head1
+
+      foobar
+
+      ** head2
+
+      *** head3
+
+    is convert to
+
+      <div class="section">
+      <h3>head1</h3>
+      <p>foobar</p>
+        <div class="section">
+        <h4>head2</h4>
+          <div class="section">
+          <h5>head3</h5>
+          </div>
+        </div>
+      </div>
+
+  List
+   unordered list
+      - ul
+      - ul
+      -- ul
+      -- ul
+      --- ul
+      - ul
+
+    is convert to
+
+      <ul>
+        <li>ul</li>
+        <li>ul</li>
+        <li>
+          <ul>
+            <li>ul</li>
+            <li>ul</li>
+            <li>
+              <ul>
+                <li>ul</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>ul</li>
+      </ul>
+
+   ordered list
+      + ol
+      + ol
+      ++ ol
+      ++ ol
+      +++ ol
+      + ol
+
+    is convert to
+
+      <ol>
+        <li>ol</li>
+        <li>ol</li>
+        <li>
+          <ol>
+            <li>ol</li>
+            <li>ol</li>
+            <li>
+              <ol>
+                <li>ol</li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>ol</li>
+      </ol>
+
+   mixed list
+      - ul
+      - ul
+      -+ ol
+      -+ ol
+      -+ ol
+      - ul
+
+   definition list
+      :definition:description
+      :definition:description
+
+    is convert to
+
+      <dl>
+        <dt>definition</dt>
+        <dd>description</dd>
+        <dt>definition</dt>
+        <dd>description</dd>
+      </dl>
+
+   multiline
+    This is incompatible syntax with Hatena::Diary
+
+      :definition:
+      :: description
+      :definition:
+      :: description
+
+  Table
+      |*foo|*bar|*baz|
+      |test|test|test|
+      |test|test|test|
+
+    is convert to
+
+      <table>
+        <tr>
+          <th>foo</th>
+          <th>bar</th>
+          <th>baz</th>
+        </tr>
+        <tr>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+        </tr>
+        <tr>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+        </tr>
+      </table>
+
+  Inline syntaxes
+    Autolink http:// ftp:// mailto://
+        http://example.com/
+        ftp://example.com/
+        mailto:cho45@lowreal.net
+        [http://example.com/]
+
+        # using Xatena::Inline::Aggressive
+        [http://example.com/]
+        [http://example.com/:title] # auto retrieving from url
+        [http://example.com/:title=Foobar]
+        [http://example.com/:barcode] # show qrcode with google chart API
+
+    Deter inline syntaxes syntax
+        []http://example.com/[]
+
+  Compatibility with Hatena::Diary syntax
+    Some default behaviors of Xatena syntax are different from Hatena::Diary
+    syntax.
+
+    Big differents:
+
+    1. Hatena::Diary syntax converts single break to "<p"> block but Xatena
+    converts it to "<br/">.
+    2. Hatena::Diary syntax converts * (heading notation) to simple "<hn">
+    element but Xatena converts it to "<div class="section"">
+    3. Xatena support multiline definition list
+
+    But Xatena supports Hatena::Diary compatibile mode, you can change the
+    behavior with a option.
+
+      my $thx = Text::Xatena->new(hatena_compatible => 1);
+
+AUTHOR
+    cho45 <cho45@lowreal.net>
+
+SEE ALSO
+    Text::Hatena
+
+    <http://hatenadiary.g.hatena.ne.jp/keyword/%E3%81%AF%E3%81%A6%E3%81%AA%E
+    8%A8%98%E6%B3%95%E4%B8%80%E8%A6%A7>>
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
