@@ -22,10 +22,10 @@ test
 
 === test
 --- input
-test
+test http://example.com/
 test
 --- expected
-<p>test</p>
+<p>test <a href="http://example.com/">http://example.com/</a></p>
 <p>test</p>
 
 === test

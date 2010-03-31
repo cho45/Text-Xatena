@@ -64,6 +64,8 @@ sub _format_hatena_compat {
     local $Text::Xatena::Node::Section::ENDOFNODE = "";
     local *Text::Xatena::Node::as_html_paragraph = sub {
         my ($self, $text, %opts) = @_;
+        $text = $self->inline($text, %opts);
+
         $text =~ s{^\n}{}g;
         if ($opts{stopp}) {
             $text;
