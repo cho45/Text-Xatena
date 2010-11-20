@@ -44,13 +44,14 @@ sub format {
 sub _parse {
     my ($self, $string) = @_;
 
-    my $s     = Text::Xatena::LineScanner->new($string);
-    my $root  = Text::Xatena::Node::Root->new ;
-    my $stack = [ $root ];
+    my @syntaxes = @$SYNTAXES;
+    my $s        = Text::Xatena::LineScanner->new($string);
+    my $root     = Text::Xatena::Node::Root->new ;
+    my $stack    = [ $root ];
     loop: until ($s->eos) {
-        my $parent   = $stack->[-1];
+        my $parent = $stack->[-1];
 
-        for my $pkg (@$SYNTAXES) {
+        for my $pkg (@syntaxes) {
             $pkg->parse($s, $parent, $stack) and next loop;
         }
 

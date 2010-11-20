@@ -9,57 +9,55 @@ sub new {
     bless {
         matched => undef,
         line    => 0,
+        eos     => 0,
         lines   => [ split /\n/, $str ]
     }, $class;
 }
 
 sub scan {
-    my ($self, $regexp) = @_;
-    my @matched = ($self->current =~ $regexp);
-    if (@matched) {
-        $self->{matched} = [ $self->{lines}->[$self->{line}], @matched ];
+    my $self = shift;
+    if (my @matched = ($self->{lines}->[$self->{line}] =~ $_[0])) {
+        unshift @matched, $self->{lines}->[$self->{line}];
+        $self->{matched} = \@matched;
         $self->{line}++;
-        $self->matched->[0];
+        $self->{eos} = ($self->{line} >= @{ $self->{lines} });
+        $matched[0];
     } else {
-        $self->{matched} = undef;
+        undef $self->{matched};
     }
 }
 
 sub next {
-    my ($self) = @_;
-    my $ret = $self->current;
+    my $self = shift;
+    my $ret = $self->{lines}->[$self->{line}];
     $self->{line}++;
+    $self->{eos} = ($self->{line} >= @{ $self->{lines} });
     $ret;
 }
 
 sub scan_until {
-    my ($self, $regexp) = @_;
+    my $self = shift;
     my $ret = [];
-    until ($self->eos || $self->scan($regexp)) {
-        push @$ret, $self->current;
+    until ($self->{eos} || $self->scan($_[0])) {
+        push @$ret, $self->{lines}->[$self->{line}];
         $self->{line}++;
+        $self->{eos} = ($self->{line} >= @{ $self->{lines} });
     }
-    push @$ret, $self->matched->[0] if $self->matched;
+    push @$ret, $self->{matched}->[0] if $self->{matched};
     wantarray? @$ret : $ret;
 }
 
 sub matched {
-    my ($self) = @_;
-    $self->{matched};
+    $_[0]->{matched};
 }
 
 sub current {
-    my ($self) = @_;
-    $self->eos && croak "End of String Error";
-    $self->{lines}->[$self->{line}];
+    $_[0]->{lines}->[$_[0]->{line}];
 }
 
 sub eos {
-    my ($self) = @_;
-    $self->{line} >= scalar @{ $self->{lines} };
+    $_[0]->{eos}
 }
-
-
 
 1;
 __END__
