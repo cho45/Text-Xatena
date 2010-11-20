@@ -9,6 +9,7 @@ requires 'HTML::Entities';
 requires 'LWP::Simple';
 requires 'UNIVERSAL::require';
 requires 'List::MoreUtils';
+requires 'Encode';
 
 test_requires 'Test::More';
 test_requires 'HTML::Parser';
