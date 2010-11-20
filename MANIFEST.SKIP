@@ -21,3 +21,5 @@
 ^[^/]+\.yaml$
 ^[^/]+\.pl$
 ^\.shipit$
+^nytprof
+

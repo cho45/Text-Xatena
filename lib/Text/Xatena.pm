@@ -9,7 +9,7 @@ use Text::Xatena::Node;
 use Text::Xatena::Node::Root;
 use Text::Xatena::Inline;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our $SYNTAXES = [
     'Text::Xatena::Node::SuperPre',
@@ -83,7 +83,7 @@ sub _format_hatena_compat {
 sub _parse {
     my ($self, $string) = @_;
 
-    my @syntaxes = @$SYNTAXES;
+    my @syntaxes = @{ $self->{syntaxes} };
     my $s        = Text::Xatena::LineScanner->new($string);
     my $root     = Text::Xatena::Node::Root->new ;
     my $stack    = [ $root ];

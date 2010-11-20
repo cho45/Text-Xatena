@@ -1,3 +1,9 @@
+2010-11-20  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.04:
+	Fix dependency.
+	Performance improved.
+
 2010-03-23  SATOH Hiroh <cho45@lowreal.net>
 
 	* Fix comment syntax

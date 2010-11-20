@@ -1,4 +1,5 @@
 .gitignore
+benchmark/sketch.pl
 bin/thx
 Changes
 inc/Module/Install.pm
@@ -10,7 +11,6 @@ inc/Module/Install/Include.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/ReadmeFromPod.pm
-inc/Module/Install/Repository.pm
 inc/Module/Install/TestBase.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
