@@ -151,12 +151,12 @@ especially for programmers, writers treating long text.
 =head2 What is Xatena
 
 Xatena syntax is similar to Hatena syntax (implemented as L<Text::Hatena|Text::Hatena>),
-but independent from Hatena services and more expandability.
+but is independent from Hatena services and has more expandability.
 
 Most block level syntax notations are supported and more compatibility with Hatena::Diary
 than Text::Hatena 0.20.
 
-And don't support rare syntax or what isn't to be done of syntax formatter.
+And don't support rare syntax or what isn't to be done of syntax formatter. (eg. linking keywords)
 
 =head1 SYNTAX
 
@@ -168,7 +168,7 @@ double line breaks to C<<p>> element except "Stop P" syntax.
 
   baz
 
-is convert to
+is converted to following:
 
   <p>fooo<br/>bar</p>
   <p>baz</p>
@@ -181,7 +181,7 @@ is convert to
   foobar
   <<
 
-is convert to
+is converted to following:
 
   <blockquote>
   <p>quoted text</p>
@@ -194,7 +194,7 @@ is convert to
   foobar
   <<
 
-is convert to
+is converted to following:
 
   <blockquote cite="http://example.com/">
     <p>quote</p>
@@ -207,7 +207,7 @@ is convert to
   pre <a href="">formatted</a>
   |<
 
-is convert to
+is converted to following:
 
   <pre>
   pre <a href="">formatted</a>
@@ -219,7 +219,7 @@ is convert to
   super pre <a>
   ||<
 
-is convert to
+is converted to following:
 
   <pre>
   super pre &lt;a&gt;
@@ -231,7 +231,7 @@ is convert to
   use Text::Xatena;
   ||<
 
-is convert to
+is converted to following:
 
   <pre class="code lang-perl">
   use Text::Xatena;
@@ -247,7 +247,7 @@ Stop insert p or br.
   </p>
   </blockquote>< 
 
-is convert to
+is converted to following:
 
   <blockquote>
   <p>
@@ -279,7 +279,7 @@ Create structured sections by * following heading.
 
   *** head3
 
-is convert to 
+is converted to following: 
 
   <div class="section">
   <h3>head1</h3>
@@ -303,7 +303,7 @@ is convert to
   --- ul
   - ul
 
-is convert to
+is converted to following:
 
   <ul>
     <li>ul</li>
@@ -331,7 +331,7 @@ is convert to
   +++ ol
   + ol
 
-is convert to
+is converted to following:
 
   <ol>
     <li>ol</li>
@@ -364,7 +364,7 @@ is convert to
   :definition:description
   :definition:description
 
-is convert to
+is converted to following:
 
   <dl>
     <dt>definition</dt>
@@ -388,7 +388,7 @@ This is incompatible syntax with Hatena::Diary
   |test|test|test|
   |test|test|test|
 
-is convert to
+is converted to following:
 
   <table>
     <tr>
