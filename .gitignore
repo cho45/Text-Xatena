@@ -7,4 +7,3 @@ inc
 Makefile.old
 MANIFEST.bak
 nytprof*
-benchmark/*
