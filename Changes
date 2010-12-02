@@ -1,3 +1,9 @@
+2010-12-02  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.05:
+	Support footnotes.
+	Support :title= syntax in normal inline module.
+
 2010-11-20  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.04:

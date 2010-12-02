@@ -41,13 +41,13 @@ DESCRIPTION
 
   What is Xatena
     Xatena syntax is similar to Hatena syntax (implemented as Text::Hatena),
-    but independent from Hatena services and more expandability.
+    but is independent from Hatena services and has more expandability.
 
     Most block level syntax notations are supported and more compatibility
     with Hatena::Diary than Text::Hatena 0.20.
 
     And don't support rare syntax or what isn't to be done of syntax
-    formatter.
+    formatter. (for example, linking keywords)
 
 SYNTAX
     Basically, Xatena convert single line breaks to "<br/"> and double line
@@ -58,7 +58,7 @@ SYNTAX
 
       baz
 
-    is convert to
+    is converted to following:
 
       <p>fooo<br/>bar</p>
       <p>baz</p>
@@ -70,7 +70,7 @@ SYNTAX
       foobar
       <<
 
-    is convert to
+    is converted to following:
 
       <blockquote>
       <p>quoted text</p>
@@ -82,7 +82,7 @@ SYNTAX
       foobar
       <<
 
-    is convert to
+    is converted to following:
 
       <blockquote cite="http://example.com/">
         <p>quote</p>
@@ -94,7 +94,7 @@ SYNTAX
       pre <a href="">formatted</a>
       |<
 
-    is convert to
+    is converted to following:
 
       <pre>
       pre <a href="">formatted</a>
@@ -105,7 +105,7 @@ SYNTAX
       super pre <a>
       ||<
 
-    is convert to
+    is converted to following:
 
       <pre>
       super pre &lt;a&gt;
@@ -116,7 +116,7 @@ SYNTAX
       use Text::Xatena;
       ||<
 
-    is convert to
+    is converted to following:
 
       <pre class="code lang-perl">
       use Text::Xatena;
@@ -131,7 +131,7 @@ SYNTAX
       </p>
       </blockquote><
 
-    is convert to
+    is converted to following:
 
       <blockquote>
       <p>
@@ -161,7 +161,7 @@ SYNTAX
 
       *** head3
 
-    is convert to
+    is converted to following:
 
       <div class="section">
       <h3>head1</h3>
@@ -183,7 +183,7 @@ SYNTAX
       --- ul
       - ul
 
-    is convert to
+    is converted to following:
 
       <ul>
         <li>ul</li>
@@ -210,7 +210,7 @@ SYNTAX
       +++ ol
       + ol
 
-    is convert to
+    is converted to following:
 
       <ol>
         <li>ol</li>
@@ -241,7 +241,7 @@ SYNTAX
       :definition:description
       :definition:description
 
-    is convert to
+    is converted to following:
 
       <dl>
         <dt>definition</dt>
@@ -263,7 +263,7 @@ SYNTAX
       |test|test|test|
       |test|test|test|
 
-    is convert to
+    is converted to following:
 
       <table>
         <tr>
@@ -298,6 +298,33 @@ SYNTAX
 
     Deter inline syntax
         []http://example.com/[]
+
+    Footnote syntax
+        Perl((most famous light weight language))
+
+      is converted to
+
+        Perl<a href="#fn1">*1</a>
+
+      and footnote object is available in inline object, so you will do
+      expand it like following:
+
+        my $thx = Text::Xatena->new;
+        my $inline = Text::Xatena::Inline->new;
+        my $formatted = $thx->format('aaa((foobar)) bbb((barbaz))', inline => $inline);
+        my $out = '';
+        $out .= '<div class="body">';
+        $out .= $formatted;
+        $out .= '</div>';
+        $out .= '<div class="notes">';
+        for my $footnote (@{ $inline->footnotes }) {
+           $out .= sprintf('<div class="footnote" id="#fn%d">*%d: %s</div>',
+             $footnote->{number},
+             $footnote->{number},
+             $footnote->{note},
+           );
+        }
+        $out .= '</div>';
 
   Compatibility with Hatena::Diary syntax
     Some default behaviors of Xatena syntax are different from Hatena::Diary

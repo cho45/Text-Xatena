@@ -9,7 +9,7 @@ use Text::Xatena::Node;
 use Text::Xatena::Node::Root;
 use Text::Xatena::Inline;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 our $SYNTAXES = [
     'Text::Xatena::Node::SuperPre',
@@ -156,7 +156,7 @@ but is independent from Hatena services and has more expandability.
 Most block level syntax notations are supported and more compatibility with Hatena::Diary
 than Text::Hatena 0.20.
 
-And don't support rare syntax or what isn't to be done of syntax formatter. (eg. linking keywords)
+And don't support rare syntax or what isn't to be done of syntax formatter. (for example, linking keywords)
 
 =head1 SYNTAX
 
@@ -437,7 +437,7 @@ is converted to
 
   Perl<a href="#fn1">*1</a>
 
-and footnote object is avaiable in inline object, so you will do expand it like following:
+and footnote object is available in inline object, so you will do expand it like following:
 
   my $thx = Text::Xatena->new;
   my $inline = Text::Xatena::Inline->new;
