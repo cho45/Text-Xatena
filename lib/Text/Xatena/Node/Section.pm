@@ -19,7 +19,10 @@ sub parse {
         $node->{level} = $level;
         $node->{title} = $title;
 
-        pop @$stack while (ref($stack->[-1]) eq $class) && ($stack->[-1]->level >= $level);
+        pop @$stack while
+            ((ref($stack->[-1]) eq $class) && ($stack->[-1]->level >= $level)) ||
+            ($level == 1 && ref($stack->[-1]) eq 'Text::Xatena::Node::SeeMore' && !$stack->[-1]->{is_super});
+
         $parent = $stack->[-1];
 
         push @$parent, $node;

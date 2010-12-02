@@ -35,9 +35,9 @@ sub run_html {
 
 sub is_html ($$;$) {
     my ($got, $expected, $desc) = @_;
-    is_deeply(html($got), html($expected), $desc) or warn sprintf("expected:\n%s\ngot:\n%s\n",
-        scalar $expected,
+    is_deeply(html($got), html($expected), $desc) or warn sprintf("got:\n%s\nexpected:\n%s\n",
         scalar $got,
+        scalar $expected,
     );
 }
 

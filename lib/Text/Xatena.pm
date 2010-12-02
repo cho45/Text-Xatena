@@ -12,6 +12,7 @@ use Text::Xatena::Inline;
 our $VERSION = '0.05';
 
 our $SYNTAXES = [
+    'Text::Xatena::Node::SeeMore',
     'Text::Xatena::Node::SuperPre',
     'Text::Xatena::Node::StopP',
     'Text::Xatena::Node::Blockquote',
