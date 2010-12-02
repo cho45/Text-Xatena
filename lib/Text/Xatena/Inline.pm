@@ -114,6 +114,14 @@ match qr<\[?mailto:([^\s\@:?]+\@[^\s\@:?]+(\?[^\s]+)?)\]?>i => sub {
     );
 };
 
+match qr<\[tex:([^\]]+)\]>i => sub {
+    my ($self, $tex) = @_;
+
+    return sprintf('<img src="http://chart.apis.google.com/chart?cht=tx&chl=%s" alt="%s"/>',
+        uri_escape($tex),
+        encode_entities($tex)
+    );
+};
 
 1;
 __END__

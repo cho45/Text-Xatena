@@ -9,7 +9,7 @@ plan tests => 1 * blocks() + 1;
 
 run_html;
 
-subtest 'footnote' => sub {
+subtest 'footnote object' => sub {
 	my $thx = Text::Xatena->new;
 	my $inline = Text::Xatena::Inline->new;
 	$thx->format('((foobar)) ((barbaz))', inline => $inline);
@@ -31,7 +31,7 @@ done_testing;
 
 
 __END__
-=== test
+=== <a href="">
 --- input
 <a href="http://example.com/">http://example.com/</a>
 --- expected
@@ -41,7 +41,7 @@ http://example.com/
 </a>
 </p>
 
-=== test
+=== plain http url
 --- input
 http://example.com/
 --- expected
@@ -51,7 +51,7 @@ http://example.com/
 </a>
 </p>
 
-=== test
+=== plain mailto uri
 --- input
 mailto:cho45@lowreal.net
 --- expected
@@ -61,7 +61,7 @@ cho45@lowreal.net
 </a>
 </p>
 
-=== test
+=== url in bracket
 --- input
 [http://example.com/]
 --- expected
@@ -71,7 +71,7 @@ http://example.com/
 </a>
 </p>
 
-=== test
+=== unlink
 --- input
 []http://example.com/[]
 --- expected
@@ -79,7 +79,7 @@ http://example.com/
 http://example.com/
 </p>
 
-=== test
+=== plain http url in antoher element
 --- input
 <strong>http://example.com/</strong>
 --- expected
@@ -91,7 +91,7 @@ http://example.com/
 </strong>
 </p>
 
-=== test
+=== plain http url in antoher element
 --- input
 <q cite="http://example.com/">http://example.com/</q>
 --- expected
@@ -103,7 +103,7 @@ http://example.com/
 </q>
 </p>
 
-=== test
+=== url with port number
 --- input
 [http://example.com:80/]
 --- expected
@@ -113,7 +113,7 @@ http://example.com:80/
 </a>
 </p>
 
-=== test
+=== barcode
 --- input
 [http://example.com/:barcode]
 --- expected
@@ -121,7 +121,7 @@ http://example.com:80/
 <img src="http://chart.apis.google.com/chart?chs=150x150&cht=qr&chl=http%3A%2F%2Fexample.com%2F" title="http://example.com/"/>
 </p>
 
-=== test
+=== link with title
 --- input
 [http://example.com/:title=Foo bar]
 --- expected
@@ -131,7 +131,7 @@ Foo bar
 </a>
 </p>
 
-=== gkbr: http://d.hatena.ne.jp/hatenadiary/20030315/1047690605
+=== footnote gkbr: http://d.hatena.ne.jp/hatenadiary/20030315/1047690605
 --- input
 (((foobar)))
 --- expected
@@ -165,3 +165,21 @@ xxx
 <a href="#fn1" title="foobar">*1</a>
 </p>
 
+=== http + footnote
+--- input
+[http://example.com/]((foobar))
+--- expected
+<p>
+<a href="http://example.com/">
+http://example.com/
+</a>
+<a href="#fn1" title="foobar">*1</a>
+</p>
+
+=== [tex:]
+--- input
+[tex:e^{i\pi} = -1]
+--- expected
+<p>
+<img src="http://chart.apis.google.com/chart?cht=tx&chl=e%5E%7Bi%5Cpi%7D%20%3D%20-1" alt="e^{i\pi} = -1"/>
+</p>
