@@ -429,6 +429,33 @@ is converted to following:
 
   []http://example.com/[]
 
+=item Footnote syntax
+
+  Perl((most famous light weight language))
+
+is converted to
+
+  Perl<a href="#fn1">*1</a>
+
+and footnote object is avaiable in inline object, so you will do expand it like following:
+
+  my $thx = Text::Xatena->new;
+  my $inline = Text::Xatena::Inline->new;
+  my $formatted = $thx->format('aaa((foobar)) bbb((barbaz))', inline => $inline);
+  my $out = '';
+  $out .= '<div class="body">';
+  $out .= $formatted;
+  $out .= '</div>';
+  $out .= '<div class="notes">';
+  for my $footnote (@{ $inline->footnotes }) {
+     $out .= sprintf('<div class="footnote" id="#fn%d">*%d: %s</div>',
+       $footnote->{number},
+       $footnote->{number},
+       $footnote->{note},
+     );
+  }
+  $out .= '</div>';
+
 =back
 
 =head2 Compatibility with Hatena::Diary syntax
