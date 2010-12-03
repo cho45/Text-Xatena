@@ -12,6 +12,7 @@ requires 'List::MoreUtils';
 requires 'Encode';
 
 test_requires 'Test::More';
+test_requires 'Test::Most';
 test_requires 'HTML::Parser';
 test_requires 'Cache::MemoryCache';
 
