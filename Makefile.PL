@@ -1,3 +1,20 @@
+BEGIN {
+	my @mip = qw(
+		Module::Install::AuthorTests
+		Module::Install::Repository
+		Module::Install::ReadmeFromPod
+		Module::Install::TestBase
+	);
+	for (@mip) {
+		eval "require $_";
+		if ($@) {
+			warn $@;
+			printf("# Install following (perl Makefile.PL | cpanm):\n%s", join("\n", @mip));
+			exit 1;
+		}
+	}
+};
+
 use inc::Module::Install;
 name 'Text-Xatena';
 all_from 'lib/Text/Xatena.pm';
@@ -9,9 +26,11 @@ requires 'HTML::Entities';
 requires 'LWP::Simple';
 requires 'UNIVERSAL::require';
 requires 'List::MoreUtils';
-requires 'Encode';
 
+test_requires 'Encode';
+test_requires 'LWP::UserAgent';
 test_requires 'Test::More';
+test_requires 'Test::Base';
 test_requires 'Test::Most';
 test_requires 'HTML::Parser';
 test_requires 'Cache::MemoryCache';
