@@ -1,5 +1,5 @@
 .gitignore
-benchmark/sketch.pl
+benchmark/benchmark.pl
 bin/thx
 Changes
 inc/Module/Install.pm
@@ -34,6 +34,7 @@ lib/Text/Xatena/Node/List.pm
 lib/Text/Xatena/Node/Pre.pm
 lib/Text/Xatena/Node/Root.pm
 lib/Text/Xatena/Node/Section.pm
+lib/Text/Xatena/Node/SeeMore.pm
 lib/Text/Xatena/Node/StopP.pm
 lib/Text/Xatena/Node/SuperPre.pm
 lib/Text/Xatena/Node/Table.pm
@@ -52,6 +53,7 @@ t/01_list.t
 t/01_paragraph.t
 t/01_pre.t
 t/01_section.t
+t/01_seemore.t
 t/01_stopp.t
 t/01_superpre.t
 t/01_table.t
