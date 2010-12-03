@@ -49,9 +49,22 @@ sub format {
     }
 }
 
+sub inline {
+    my ($self, $new) = @_;
+    if (@_ > 1) {
+        $self->{inline} = $new;
+    } else {
+        $self->{inline};
+    }
+}
+
 sub _format {
     my ($self, $string, %opts) = @_;
-    $opts{inline} ||= Text::Xatena::Inline->new;
+
+    $opts{inline} ||= do {
+        $self->{inline} ||= Text::Xatena::Inline->new;
+    };
+
     $self->_parse($string)->as_html(
         %opts
     );

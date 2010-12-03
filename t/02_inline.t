@@ -11,9 +11,8 @@ run_html;
 
 subtest 'footnote object' => sub {
 	my $thx = Text::Xatena->new;
-	my $inline = Text::Xatena::Inline->new;
-	$thx->format('((foobar)) ((barbaz))', inline => $inline);
-	eq_or_diff $inline->footnotes, [
+	$thx->format('((foobar)) ((barbaz))');
+	eq_or_diff $thx->inline->footnotes, [
 		{
 			'number' => 1,
 			'title' => 'foobar',
