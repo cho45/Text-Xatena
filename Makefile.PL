@@ -8,9 +8,12 @@ BEGIN {
 	for (@mip) {
 		eval "require $_";
 		if ($@) {
-			warn $@;
-			printf("# Install following (perl Makefile.PL | cpanm):\n%s", join("\n", @mip));
-			exit 1;
+			eval "require inc::$_";
+			if ($@) {
+				warn $@;
+				printf("# Install following (perl Makefile.PL | cpanm):\n%s", join("\n", @mip));
+				exit 1;
+			}
 		}
 	}
 };
