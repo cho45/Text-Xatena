@@ -6,6 +6,8 @@ use Test::Base -Base;
 use HTML::Parser;
 use Data::Dumper;
 use UNIVERSAL::require;
+use HTML::Entities;
+use Test::Differences;
 
 use lib 'lib';
 use Text::Xatena;
@@ -35,10 +37,7 @@ sub run_html {
 
 sub is_html ($$;$) {
     my ($got, $expected, $desc) = @_;
-    is_deeply(html($got), html($expected), $desc) or warn sprintf("got:\n%s\nexpected:\n%s\n",
-        scalar $got,
-        scalar $expected,
-    );
+    eq_or_diff(html($got), html($expected), $desc);
 }
 
 sub thx ($) {
@@ -52,7 +51,7 @@ sub thx ($) {
 sub html ($) {
     my ($s) = @_;
 
-    my $root  = [ tag => attr => [] ];
+    my $root  = [ root => {} => [] ];
     my $stack = [ $root ];
     my $p = HTML::Parser->new(
         api_version => 3,
@@ -96,7 +95,30 @@ sub html ($) {
     $p->parse($s);
     $p->eof;
 
-    $root;
+    my $ret = [];
+    my $walker; $walker = sub {
+        my ($parent, $level) = @_;
+        my ($tag, $attr, $children) = @$parent;
+
+        my $a = join ' ', map { sprintf('%s="%s"', $_,  encode_entities($attr->{$_})) } sort { $a cmp $b } keys %$attr;
+        my $has_element = grep { ref($_) } @$children;
+        if ($has_element) {
+            push @$ret, sprintf('%s<%s%s>', "  " x $level, $tag, $a ? " $a" : "");
+            for my $node (@$children) {
+                if (ref($node)) {
+                    $walker->($node, $level + 1);
+                } else {
+                    push @$ret, $node;
+                }
+            }
+            push @$ret, sprintf('%s</%s>', "  " x $level, $tag);
+        } else {
+            push @$ret, sprintf('%s<%s%s>%s</%s>', "  " x $level, $tag, $a ? " $a" : "", join(' ', @$children), $tag);
+        }
+    };
+    $walker->($root, 0);
+
+    $ret;
 }
 
 

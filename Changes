@@ -1,3 +1,8 @@
+2010-12-05  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.07:
+	Fix Makefile.PL
+
 2010-12-03  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.06:
