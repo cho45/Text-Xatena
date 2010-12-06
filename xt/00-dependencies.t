@@ -1,7 +1,7 @@
 use YAML;
 use Test::Dependencies
 	exclude =>
-		[qw/ Text::Xatena Filter::Util::Call Test::Base /];
+		[qw/ opts Text::Xatena Filter::Util::Call Test::Base /];
 
 local *Test::Dependencies::LoadFile = sub {
 	my ($filename) = @_;
