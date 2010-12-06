@@ -1,12 +1,14 @@
 use strict;
 use warnings;
 use lib 't/lib';
+use Test::Most;
 use Text::Xatena::Test;
 
-plan tests => 1 * blocks;
+plan tests => 1 * blocks() + 1;
 
 run_html;
 
+like thx('- foo'), qr{<ul>\s*<li>foo</li>\s*</ul>}, 'check whitespaces';
 
 __END__
 

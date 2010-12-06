@@ -26,7 +26,7 @@ sub as_struct {
     my $children = $self->children;
 
     for my $line (@$children) {
-        my ($symbol, $text) = ($line =~ /^([-+]+)(.+)$/);
+        my ($symbol, $text) = ($line =~ /^([-+]+)\s*(.+)$/);
         my $level = length($symbol);
         pop @$stack while (scalar @$stack > $level * 2);
         while (scalar @$stack < $level * 2) {
@@ -58,6 +58,7 @@ sub as_html {
 sub _as_html {
     my ($self, $obj, %opts) = @_;
     my $ret = "<" . $obj->{name} . ">";
+    $ret .= "\n" unless $obj->{name} eq 'li';
     for my $child (@{ $obj->{children} }) {
         if (ref($child)) {
             $ret .= $self->_as_html($child, %opts);

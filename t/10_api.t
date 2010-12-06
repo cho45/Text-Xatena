@@ -7,6 +7,7 @@ use Text::Xatena;
 use Encode;
 use Text::Xatena::Test;
 use Text::Xatena::Test::MyInline;
+use Test::HTML::Differences;
 
 plan tests => 3;
 
@@ -28,12 +29,12 @@ subtest "basic" => sub {
 
 subtest "replace inline" => sub {
     my $thx = Text::Xatena->new;
-    is_html $thx->format('TEST'), "<p>TEST</p>";
+    is $thx->format('TEST'), "<p>TEST</p>\n";
     {
-        is_html $thx->format('TEST', inline => Text::Xatena::Test::MyInline->new), "<p>XXXX</p>";
-        is_html $thx->format('http://example.com/'), '<p><a href="http://example.com/">http://example.com/</a></p>';
+        is $thx->format('TEST', inline => Text::Xatena::Test::MyInline->new), "<p>XXXX</p>\n";
+        is $thx->format('http://example.com/'), qq{<p><a href="http://example.com/">http://example.com/</a></p>\n};
     };
-    is_html $thx->format('TEST'), "<p>TEST</p>";
+    is $thx->format('TEST'), "<p>TEST</p>\n";
 
     done_testing;
 };
@@ -41,7 +42,7 @@ subtest "replace inline" => sub {
 subtest "replace block" => sub {
     my $thx = Text::Xatena->new(syntaxes => [
     ]);
-    is_html $thx->format(">>\nquote\n<<"), "<p>>><br />quote<br /><<</p>";
+    eq_or_diff_html $thx->format(">>\nquote\n<<"), "<p>>><br />quote<br /><<</p>";
 
     done_testing;
 };

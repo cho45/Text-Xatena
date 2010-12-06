@@ -88,7 +88,10 @@ sub _format_hatena_compat {
         }
     };
 
-    $opts{inline} ||= Text::Xatena::Inline->new;
+    $opts{inline} ||= do {
+        $self->{inline} ||= Text::Xatena::Inline->new;
+    };
+
     $self->_parse($string)->as_html(
         %opts
     );

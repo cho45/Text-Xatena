@@ -28,14 +28,14 @@ sub as_html {
     my ($self, %opts) = @_;
     if ($self->{beginning}->[1]) {
         my $url = $self->{beginning}->[1];
-        sprintf('<blockquote cite="%s">%s<cite><a href="%s">%s</a></cite></blockquote>',
+        sprintf("<blockquote cite=\"%s\">\n%s\n<cite><a href=\"%s\">%s</a></cite>\n</blockquote>\n",
             $url,
             $self->SUPER::as_html(%opts),
             $url,
             $url,
         );
     } else {
-        '<blockquote>' . $self->SUPER::as_html(%opts) . '</blockquote>';
+        "<blockquote>\n" . $self->SUPER::as_html(%opts) . "</blockquote>\n";
     }
 }
 

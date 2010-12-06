@@ -37,6 +37,7 @@ test_requires 'Test::Base';
 test_requires 'Test::Most';
 test_requires 'HTML::Parser';
 test_requires 'Cache::MemoryCache';
+test_requires 'Test::HTML::Differences';
 
 tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t t/*/*/*/*/*.t';
 author_tests 'xt';
