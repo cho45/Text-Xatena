@@ -1,6 +1,6 @@
 .gitignore
 benchmark/benchmark.pl
-bin/thx
+bin/xatena
 Changes
 inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm

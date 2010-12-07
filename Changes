@@ -1,30 +1,36 @@
+2010-12-07  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.08:
+	Fixed bahavior of many returns.
+	Fixed Makefile.PL.
+
 2010-12-05  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.07:
-	Fix Makefile.PL
+	Fixed Makefile.PL
 
 2010-12-03  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.06:
-	Support seemore syntax partly.
-	Update dependency.
+	Supported seemore syntax partly.
+	Updated dependency.
 
 2010-12-02  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.05:
-	Support footnotes.
-	Support :title= syntax in normal inline module.
+	Supported footnotes.
+	Supported :title= syntax in normal inline module.
 
 2010-11-20  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.04:
-	Fix dependency.
+	Fixed dependency.
 	Performance improved.
 
 2010-03-23  SATOH Hiroh <cho45@lowreal.net>
 
-	* Fix comment syntax
-	* Fix test of aggressive (override LWP::get to pass tests)
+	* Fixed comment syntax
+	* Fixed test of aggressive (override LWP::get to pass tests)
 	* 0.03
 	Released
 
@@ -33,7 +39,7 @@
 	* 0.01
 	Released
 	* 0.02
-	Fix module dependency bug
+	Fixed module dependency bug
 
 
 vim:ft=changelog:
