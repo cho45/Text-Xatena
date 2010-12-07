@@ -7,3 +7,5 @@ inc
 Makefile.old
 MANIFEST.bak
 nytprof*
+t/99_bruteforce.t
+
