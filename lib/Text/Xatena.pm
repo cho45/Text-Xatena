@@ -80,11 +80,20 @@ sub _format_hatena_compat {
         my ($self, $text, %opts) = @_;
         $text = $self->inline($text, %opts);
 
-        $text =~ s{^\n}{}g;
+        $text =~ s{\n$}{}g;
         if ($opts{stopp}) {
             $text;
         } else {
-            "<p>" . join("</p>\n<p><br /></p>\n<p>", map { join("</p>\n<p>", split /\n+/) } split(/\n\n\n/, $text)) . "</p>\n";
+            "<p>" . join("",
+                map {
+                    if (/^(\n+)$/) {
+                        "</p>" . ("<br />\n" x (length($1) - 2)) . "<p>";
+                    } else {
+                        $_;
+                    }
+                }
+                split(/(\n+)/, $text)
+            ) . "</p>\n";
         }
     };
 

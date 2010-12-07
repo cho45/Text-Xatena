@@ -102,3 +102,42 @@ foo
 <h3><a href="http://example.com/">http://example.com/</a></h3>
 <p>foo</p>
 
+=== test
+--- input
+a
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<p>a</p>
+
+=== test
+--- input
+a
+
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<br />
+<p>a</p>
+
+=== test
+--- input
+a
+
+
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<br />
+<br />
+<p>a</p>
+

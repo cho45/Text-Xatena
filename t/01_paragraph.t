@@ -33,3 +33,42 @@ test
 <p>test<br />test</p>
 <p>test</p>
 
+=== test
+--- input
+a
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<p>a</p>
+
+=== test
+--- input
+a
+
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<br />
+<p>a</p>
+
+=== test
+--- input
+a
+
+
+
+
+a
+--- expected
+<p>a</p>
+<br />
+<br />
+<br />
+<p>a</p>
+

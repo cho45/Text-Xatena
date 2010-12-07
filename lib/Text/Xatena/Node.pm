@@ -41,7 +41,7 @@ sub as_html {
     $ret;
 }
 
-## NOT COMPATIBLE WITH Hatena Syntax
+## NOT COMPATIBLE WITH Hatena Syntax: Auto br insertation as \n
 sub as_html_paragraph {
     my ($self, $text, %opts) = @_;
     $text = $self->inline($text, %opts);
@@ -49,7 +49,16 @@ sub as_html_paragraph {
     if ($opts{stopp}) {
         $text;
     } else {
-        "<p>" . join("</p>\n<p>", map { join("<br />", split /\n/) } split(/\n\n/, $text)) . "</p>\n";
+        "<p>" . join("",
+            map {
+                if (/^(\n+)$/) {
+                    "</p>" . ("<br />\n" x (length($1) - 2)) . "<p>";
+                } else {
+                    join("<br />\n", split /\n/);
+                }
+            }
+            split(/(\n\n+)/, $text)
+        ) . "</p>\n";
     }
 }
 
