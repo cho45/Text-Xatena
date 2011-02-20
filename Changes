@@ -1,3 +1,8 @@
+2011-02-20  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.09:
+	Fixed treating some linefeed code correctly (reported by tokuhirom)
+
 2010-12-07  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.08:
