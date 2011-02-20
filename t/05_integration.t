@@ -3,9 +3,11 @@ use warnings;
 use lib 't/lib';
 use Text::Xatena::Test;
 
-plan tests => 1 * blocks;
+plan tests => 3 * blocks;
 
 run_html;
+run_html linefeed => "\r\n";
+run_html linefeed => "\r";
 
 
 __END__

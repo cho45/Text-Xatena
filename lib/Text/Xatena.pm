@@ -42,6 +42,7 @@ sub new {
 
 sub format {
     my ($self, $string, %opts) = @_;
+    $string =~ s{\r\n?|\n}{\n}g;
     if ($opts{hatena_compatible} || $self->{hatena_compatible}) {
         $self->_format_hatena_compat($string, %opts);
     } else {

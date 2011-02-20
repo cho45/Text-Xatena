@@ -25,11 +25,15 @@ our $INLINE_ARGS = [];
 sub thx ($);
 sub html ($);
 
-sub run_html {
+sub run_html (%) {
+    my %opts = @_;
     run {
         my ($block) = @_;
         my $input = $block->input;
         my $expected = $block->expected;
+        if ($opts{linefeed}) {
+            $input =~ s/\n/$opts{linefeed}/g;
+        }
         my $got = thx $input;
         eq_or_diff_html($got, $expected, $block->name);
     }
