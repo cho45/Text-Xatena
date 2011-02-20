@@ -110,3 +110,27 @@ foo
 	</div>
 </div>
 
+### super seemore
+::: input
+* head
+
+foobar
+
+=====
+* head
+
+foo
+
+::: expected
+<div class="section">
+	<h3>head</h3>
+	<p>foobar</p>
+
+	<div class="seemore">
+		<div class="section">
+			<h3>head</h3>
+			<p>foo</p>
+		</div>
+	</div>
+</div>
+
