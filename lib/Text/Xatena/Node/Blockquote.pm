@@ -3,20 +3,21 @@ package Text::Xatena::Node::Blockquote;
 use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
-
-sub beginning { qr/^>(.*?)>$/ };
-sub endofnode { qr/^<<$/ };
+use constant {
+    BEGINNING => qr/^>(.*?)>$/,
+    ENDOFNODE => qr/^<<$/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan($class->beginning)) {
+    if ($s->scan(BEGINNING)) {
         my $node = $class->new;
         $node->{beginning} = $s->matched;
         push @$parent, $node;
         push @$stack, $node;
         return 1;
     }
-    if ($s->scan($class->endofnode)) {
+    if ($s->scan(ENDOFNODE)) {
         my $node = pop @$stack;
         ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);
         $node->{endofnode} = $s->matched;

@@ -4,12 +4,16 @@ use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
 use Text::Xatena::Util;
+use constant {
+    BEGINNING => qr/^>\|([^|]*)\|$/,
+    ENDOFNODE => qr/^\|\|<$/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^>\|([^|]*)\|$/)) {
+    if ($s->scan(BEGINNING)) {
         my $lang = $s->matched->[1];
-        my $content = $s->scan_until(qr/^\|\|<$/);
+        my $content = $s->scan_until(ENDOFNODE);
         pop @$content;
         my $node = $class->new([join("\n", @$content)]);
         $node->{lang} = $lang;

@@ -2,7 +2,6 @@ package Text::Xatena::LineScanner;
 
 use strict;
 use warnings;
-use Carp;
 
 sub new {
     my ($class, $str) = @_;

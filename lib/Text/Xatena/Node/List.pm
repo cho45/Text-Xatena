@@ -3,19 +3,31 @@ package Text::Xatena::Node::List;
 use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
+use constant {
+    UL => qr/^-/,
+    OL => qr/^\+/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    for my $l (qw/- +/) {
-        my $l = quotemeta $l;
-        if ($s->scan(qr/^$l/)) {
-            my $node = $class->new([ $s->matched->[0] ]);
-            until ($s->eos || !$s->scan(qr/^$l/)) {
-                push @$node, $s->matched->[0];
-            }
-            push @$parent, $node;
-            return 1;
+
+    if ($s->scan(UL)) {
+        my $node = $class->new([ $s->matched->[0] ]);
+        until ($s->eos || !$s->scan(UL)) {
+            push @$node, $s->matched->[0];
         }
+        push @$parent, $node;
+        return 1;
+    }
+
+    # same as above except regexp (unrolled for performance)
+    if ($s->scan(OL)) {
+        my $node = $class->new([ $s->matched->[0] ]);
+        until ($s->eos || !$s->scan(OL)) {
+            push @$node, $s->matched->[0];
+        }
+        push @$parent, $node;
+        return 1;
     }
 }
 

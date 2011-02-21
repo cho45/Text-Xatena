@@ -3,10 +3,14 @@ package Text::Xatena::Node::StopP;
 use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
+use constant {
+    BEGINNING => qr/^>(<.+>)(<)?$/,
+    ENDOFNODE => qr/^(.+>)<$/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^>(<.+>)(<)?$/)) {
+    if ($s->scan(BEGINNING)) {
         my $node = $class->new([ $s->matched->[1] ]);
         push @$parent, $node;
         if (!$s->matched->[2]) {
@@ -15,7 +19,7 @@ sub parse {
         return 1;
     }
 
-    if ($s->scan(qr/^(.+>)<$/)) {
+    if ($s->scan(ENDOFNODE)) {
         my $node = pop @$stack;
         push @$node, $s->matched->[1];
         ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);

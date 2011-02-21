@@ -7,10 +7,13 @@ use base qw(Text::Xatena::Node);
 our $BASE = 3;
 our $BEGINNING = qq{<div class="section">\n};
 our $ENDOFNODE = qq{\n</div>};
+use constant {
+    SECTION => qr/^(\*{1,3})(.*)$/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^(\*{1,3})(.*)$/)) {
+    if ($s->scan(SECTION)) {
         my $level = length $s->matched->[1];
         my $title = $s->matched->[2];
         $title =~ s/^\s+|\s+$//g;

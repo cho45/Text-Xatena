@@ -3,12 +3,15 @@ package Text::Xatena::Node::Table;
 use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
+use constant {
+    TABLE => qr/^\|/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^\|/)) {
+    if ($s->scan(TABLE)) {
         my $a = $class->new([ $s->matched->[0] ]);
-        until ($s->eos || !$s->scan(qr/^\|/)) {
+        until ($s->eos || !$s->scan(TABLE)) {
             push @$a, $s->matched->[0];
         }
         push @$parent, $a;

@@ -6,12 +6,15 @@ use warnings;
 use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
+use constant {
+    DL => qr/^:([^:]*):(.*)/,
+};
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^:([^:]*):(.*)/)) {
+    if ($s->scan(DL)) {
         my $node = $class->new([ $s->matched->[0] ]);
-        until ($s->eos || !$s->scan(qr/^:([^:]*):(.*)/)) {
+        until ($s->eos || !$s->scan(DL)) {
             push @$node, $s->matched->[0];
         }
         push @$parent, $node;

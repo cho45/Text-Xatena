@@ -84,9 +84,8 @@ cmpthese(-1, {
 });
 
 __END__
-Rate   Hatena  Textile Markdown   Xatena
-Hatena   26.8/s       --     -84%     -86%     -89%
-Textile   171/s     537%       --      -8%     -27%
-Markdown  186/s     594%       9%       --     -20%
-Xatena    233/s     770%      37%      25%       --
-
+           Rate   Hatena  Textile Markdown   Xatena
+Hatena   26.5/s       --     -85%     -86%     -93%
+Textile   175/s     563%       --      -8%     -56%
+Markdown  191/s     621%       9%       --     -52%
+Xatena    395/s    1393%     125%     107%       --

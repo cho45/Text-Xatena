@@ -4,10 +4,14 @@ use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
 use Text::Xatena::Util;
+use constant {
+    SEEMORE => qr/^====(=)?$/
+};
+
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
-    if ($s->scan(qr/^====(=)?$/)) {
+    if ($s->scan(SEEMORE)) {
         my $is_super = $s->matched->[1];
         my $node = $class->new;
         $node->{is_super} = $is_super;
