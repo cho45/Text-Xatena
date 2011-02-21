@@ -8,4 +8,4 @@ Makefile.old
 MANIFEST.bak
 nytprof*
 xt/99_bruteforce.t
-
+sketch/sketch.pl

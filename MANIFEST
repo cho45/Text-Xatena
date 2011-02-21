@@ -1,5 +1,6 @@
 .gitignore
 benchmark/benchmark.pl
+benchmark/profile.pl
 bin/xatena
 Changes
 inc/Module/Install.pm
@@ -45,6 +46,7 @@ META.yml
 Rakefile
 README
 sketch/hatena_compatible.pl
+sketch/sketch.pl
 t/00_compile.t
 t/00_util.t
 t/01_blockquote.t

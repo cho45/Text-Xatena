@@ -9,7 +9,7 @@ use Text::Xatena::Node;
 use Text::Xatena::Node::Root;
 use Text::Xatena::Inline;
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 our $SYNTAXES = [
     'Text::Xatena::Node::SeeMore',
