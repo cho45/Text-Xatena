@@ -89,3 +89,72 @@ foo
 <p>foo</p>
 </div>
 
+=== heading
+--- input
+* ***
+foobar
+--- expected
+<div class="section">
+	<h3>***</h3>
+	<p>foobar</p>
+</div>
+
+=== very complex heading
+--- input
+****foobar
+foobar
+--- expected
+<div class="section">
+	<h3>***foobar</h3>
+	<p>foobar</p>
+</div>
+
+=== very complex heading
+--- input
+* 
+trailing space
+
+** 
+trailing space
+
+*** 
+trailing space
+
+*
+no spaces
+
+**
+no spaces
+
+***
+no spaces
+--- expected
+<div class="section">
+	<h3></h3>
+	<p>trailing space</p>
+	<div class="section">
+		<h4></h4>
+		<p>trailing space</p>
+
+		<div class="section">
+			<h5></h5>
+			<p>trailing space</p>
+		</div>
+	</div>
+</div>
+
+<div class="section">
+	<h3></h3>
+	<p>no spaces</p>
+</div>
+
+<div class="section">
+	<h3>*</h3>
+	<p>no spaces</p>
+</div>
+
+<div class="section">
+	<h3>**</h3>
+	<p>no spaces</p>
+</div>
+

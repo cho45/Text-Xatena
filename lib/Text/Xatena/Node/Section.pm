@@ -8,14 +8,17 @@ our $BASE = 3;
 our $BEGINNING = qq{<div class="section">\n};
 our $ENDOFNODE = qq{\n</div>};
 use constant {
-    SECTION => qr/^(\*{1,3})(.*)$/,
+    SECTION => qr/^(?:
+        (\*\*\*?)([^\*].*)     | # *** or **
+        (\*)((?!\*\*?[^\*]).*)   # *
+    )$/x,
 };
 
 sub parse {
     my ($class, $s, $parent, $stack) = @_;
     if ($s->scan(SECTION)) {
-        my $level = length $s->matched->[1];
-        my $title = $s->matched->[2];
+        my $level = length($s->matched->[1] || $s->matched->[3]);
+        my $title = $s->matched->[2] || $s->matched->[4];
         $title =~ s/^\s+|\s+$//g;
 
         my $node = $class->new;
