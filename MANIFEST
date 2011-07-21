@@ -64,6 +64,8 @@ t/04_inline_aggressive.t
 t/05_integration.t
 t/10_api.t
 t/20_hatena_compat.t
+t/30_superpre.t
+t/31_superpre_attr.t
 t/80_internal.t
 t/lib/Text/Xatena/Test.pm
 t/lib/Text/Xatena/Test/MyInline.pm

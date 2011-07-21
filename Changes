@@ -1,3 +1,9 @@
+2011-07-21  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.11:
+	Supported customizing class of super-pre syntax for ready-made syntax
+	highlighter (eg. google-code-pretty.) (implemented by mattn)
+
 2011-02-22  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.10:
