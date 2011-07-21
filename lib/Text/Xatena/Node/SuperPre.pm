@@ -28,7 +28,8 @@ sub lang { $_[0]->{lang} }
 
 sub as_html {
     my ($self, %opts) = @_;
-    sprintf("<pre class=\"$SUPERPRE_CLASS_NAME%s\">%s</pre>",
+    sprintf("<pre class=\"%s%s\">%s</pre>",
+        $SUPERPRE_CLASS_NAME,
         $self->lang ? " lang-" . $self->lang : "",
         escape_html(join "", @{ $self->children })
     );
