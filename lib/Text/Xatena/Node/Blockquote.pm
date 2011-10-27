@@ -18,6 +18,7 @@ sub parse {
         return 1;
     }
     if ($s->scan(ENDOFNODE)) {
+        pop @$stack while ref($stack->[-1]) eq 'Text::Xatena::Node::Section';
         my $node = pop @$stack;
         ref($node) eq $class or warn sprintf("syntax error: unmatched syntax got:%s expected:%s", ref($node), $class);
         $node->{endofnode} = $s->matched;

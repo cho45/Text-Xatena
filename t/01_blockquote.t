@@ -58,3 +58,19 @@ test
 <p>quote</p>
 </blockquote>
 <p>test</p>
+
+=== bug1
+--- input
+>>
+* hoge1
+hoge2
+<<
+hoge3
+--- expected
+<blockquote>
+	<div class="section">
+		<h3>hoge1</h3>
+		<p>hoge2</p>
+	</div>
+</blockquote>
+<p>hoge3</p>
