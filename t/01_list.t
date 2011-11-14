@@ -159,3 +159,14 @@ test
 </dl>
 <p>test</p>
 
+=== bug
+--- input
+foo
+
+-
+
+bar
+--- expected
+<p>foo</p>
+<p>-</p>
+<p>bar</p>

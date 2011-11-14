@@ -4,8 +4,8 @@ use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
 use constant {
-    UL => qr/^-/,
-    OL => qr/^\+/,
+    UL => qr/^-.+/,
+    OL => qr/^\+.+/,
 };
 
 sub parse {
