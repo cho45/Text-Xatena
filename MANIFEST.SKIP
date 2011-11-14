@@ -22,4 +22,4 @@
 ^[^/]+\.pl$
 ^\.shipit$
 ^nytprof
-
+^MYMETA

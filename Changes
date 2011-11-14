@@ -1,3 +1,8 @@
+2011-11-14  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.12:
+	Fixed bug on list syntax.
+
 2011-07-21  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.11:
