@@ -24,6 +24,9 @@ subtest "basic" => sub {
     isa_ok $thx, "Text::Xatena";
     ok $thx->format('foobar');
     is_u8 $thx->format(u8 'あああ'), 'format takes utf8 strings';
+
+    is $thx->format(""), '', 'empty string';
+    is $thx->format("\n"), '', 'empty string';
     done_testing;
 };
 

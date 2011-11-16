@@ -5,11 +5,12 @@ use warnings;
 
 sub new {
     my ($class, $str) = @_;
+    my $lines = [ split /\n/, $str ];
     bless {
         matched => undef,
         line    => 0,
-        eos     => 0,
-        lines   => [ split /\n/, $str ]
+        eos     => !@$lines,
+        lines   => $lines,
     }, $class;
 }
 

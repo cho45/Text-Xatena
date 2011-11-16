@@ -86,7 +86,7 @@ match qr<\[((?:https?|ftp)://[^\s:]+(?::\d+)?[^\s:]+)(:(?:title(?:=([^[]+))?|bar
             }
             return sprintf('<a href="%s">%s</a>',
                 $uri,
-                encode_entities(decode_entities($title))
+                encode_entities(decode_entities($title || ''))
             );
         }
     } else {
