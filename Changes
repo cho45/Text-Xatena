@@ -1,3 +1,8 @@
+2011-11-16  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.13:
+	Fixed warnings in formatting empty string.
+
 2011-11-14  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.12:
