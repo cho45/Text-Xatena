@@ -28,8 +28,8 @@ sub parse {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    $self->SUPER::as_html(%opts, stopp => 1);
+    my ($self, $context, %opts) = @_;
+    $self->SUPER::as_html($context, %opts, stopp => 1);
 }
 
 1;

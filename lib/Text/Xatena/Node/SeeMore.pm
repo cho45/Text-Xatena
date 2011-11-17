@@ -24,10 +24,14 @@ sub parse {
 sub lang { $_[0]->{lang} }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    sprintf("<div class=\"seemore\">\n%s</div>\n",
-        $self->SUPER::as_html(%opts),
-    );
+    my ($self, $context, %opts) = @_;
+    $context->_tmpl(__PACKAGE__, q[
+        <div class="seemore">
+            {{= $content }}
+        </div>
+    ], {
+        content => $self->SUPER::as_html($context, %opts),
+    });
 }
 
 1;

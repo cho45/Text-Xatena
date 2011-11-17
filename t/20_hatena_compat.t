@@ -3,6 +3,8 @@ use warnings;
 use lib 't/lib';
 use Text::Xatena::Test;
 
+# plan skip_all => 'a';
+
 local $Text::Xatena::Test::options = {
     hatena_compatible => 1,
 };

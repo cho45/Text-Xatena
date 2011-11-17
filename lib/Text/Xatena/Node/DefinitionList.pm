@@ -24,7 +24,7 @@ sub parse {
 
 ## NOT COMPATIBLE WITH Hatena Syntax
 sub as_struct {
-    my ($self) = @_;
+    my ($self, $context) = @_;
     my $ret = [];
 
     my $children = $self->children;
@@ -32,18 +32,18 @@ sub as_struct {
     for my $line (@$children) {
         if (my ($description) = ($line =~ /^::(.+)/)) {
             push @$ret, +{
-                name => 'dd',
-                children => [ $description ],
+                name    => 'dd',
+                content => $context->inline->format($description),
             };
         } else {
             my ($title, $description) = ($line =~ /^:([^:]+)(?::(.*))?$/);
             push @$ret, +{
                 name => 'dt',
-                children => [ $title ],
+                content => $context->inline->format($title),
             };
             push @$ret, +{
                 name => 'dd',
-                children => [ $description ],
+                content => $context->inline->format($description),
             } if $description;
         }
     }
@@ -52,18 +52,17 @@ sub as_struct {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
+    my ($self, $context, %opts) = @_;
 
-    my $ret = "<dl>\n";
-    for my $e (@{ $self->as_struct }) {
-        $ret .= sprintf("<%s>%s</%s>\n",
-            $e->{name},
-            $self->inline(join("", @{ $e->{children} }), %opts),
-            $e->{name}
-        );
-    }
-    $ret .= "</dl>\n";
-    $ret;
+    $context->_tmpl(__PACKAGE__, q[
+        <dl>
+        ? for (@$items) {
+        <{{= $_->{name} }}>{{= $_->{content} }}</{{= $_->{name} }}>
+        ? }
+        </dl>
+    ], {
+        items => $self->as_struct($context),
+    });
 }
 
 

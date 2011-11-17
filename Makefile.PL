@@ -28,6 +28,7 @@ requires 'HTML::Entities';
 requires 'LWP::Simple';
 requires 'UNIVERSAL::require';
 requires 'List::MoreUtils';
+requires 'Text::MicroTemplate';
 
 test_requires 'Encode';
 test_requires 'LWP::UserAgent';

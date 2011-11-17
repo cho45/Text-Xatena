@@ -24,7 +24,7 @@ sub parse {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
+    my ($self, $context, %opts) = @_;
     '<!-- -->';
 }
 

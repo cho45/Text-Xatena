@@ -26,8 +26,12 @@ sub parse {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    '<pre>' . $self->SUPER::as_html(%opts, stopp => 1) . '</pre>';
+    my ($self, $context, %opts) = @_;
+    $context->_tmpl(__PACKAGE__, q[
+        <pre>{{= $content }}</pre>
+    ], {
+        content => $self->SUPER::as_html($context, %opts, stopp => 1),
+    });
 }
 
 1;

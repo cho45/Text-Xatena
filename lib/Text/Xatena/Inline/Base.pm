@@ -47,6 +47,7 @@ sub new {
 
 sub format {
     my ($self, $text) = @_;
+    $text =~ s{^\n}{}g;
     my $re = join("|", map { $_->{regexp} } @{ $self->inlines });
     $text =~ s{($re)}{$self->_format($1)}eg;
     $text;

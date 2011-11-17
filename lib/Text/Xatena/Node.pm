@@ -6,6 +6,8 @@ use overload
     '@{}' => \&children,
     fallback => 1;
 
+use Text::Xatena::Util;
+
 sub new {
     my ($class, $children) = @_;
     bless {
@@ -15,36 +17,30 @@ sub new {
 
 sub children { $_[0]->{children} };
 
-sub inline {
-    my ($self, $text, %opts) = @_;
-    $text =~ s{^\n}{}g;
-    $text = $opts{inline}->format($text);
-}
-
 sub as_html {
-    my ($self, %opts) = @_;
+    my ($self, $context, %opts) = @_;
     my $ret = "";
 
     my $children = $_[0]->{children};
     my @texts;
     for my $child (@$children) {
         if (ref($child)) {
-            $ret .= $self->as_html_paragraph(join("\n", @texts), %opts) if join '', @texts;
+            $ret .= $self->as_html_paragraph($context, join("\n", @texts), %opts) if join '', @texts;
             @texts = ();
-            $ret .= $child->as_html(%opts);
+            $ret .= $child->as_html($context, %opts);
         } else {
             push @texts, $child;
         }
     }
-    $ret .= $self->as_html_paragraph(join("\n", @texts), %opts) if join '', @texts;
+    $ret .= $self->as_html_paragraph($context, join("\n", @texts), %opts) if join '', @texts;
 
     $ret;
 }
 
 ## NOT COMPATIBLE WITH Hatena Syntax: Auto br insertation as \n
 sub as_html_paragraph {
-    my ($self, $text, %opts) = @_;
-    $text = $self->inline($text, %opts);
+    my ($self, $context, $text, %opts) = @_;
+    $text = $context->inline->format($text, $context);
 
     if ($opts{stopp}) {
         $text;
@@ -61,7 +57,6 @@ sub as_html_paragraph {
         ) . "</p>\n";
     }
 }
-
 
 1;
 __END__

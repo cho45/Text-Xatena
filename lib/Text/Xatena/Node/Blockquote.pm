@@ -27,18 +27,23 @@ sub parse {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    if ($self->{beginning}->[1]) {
-        my $url = $self->{beginning}->[1];
-        sprintf("<blockquote cite=\"%s\">\n%s\n<cite><a href=\"%s\">%s</a></cite>\n</blockquote>\n",
-            $url,
-            $self->SUPER::as_html(%opts),
-            $url,
-            $url,
-        );
-    } else {
-        "<blockquote>\n" . $self->SUPER::as_html(%opts) . "</blockquote>\n";
-    }
+    my ($self, $context, %opts) = @_;
+
+    $context->_tmpl(__PACKAGE__, q[
+        ? if ($cite) {
+            <blockquote cite="{{= $cite }}">
+                {{= $content }}
+                <cite><a href="{{= $cite }}">{{= $cite }}</a></cite>
+            </blockquote>
+        ? } else {
+            <blockquote>
+                {{= $content }}
+            </blockquote>
+        ? }
+    ], {
+        cite    => $self->{beginning}->[1],
+        content => $self->SUPER::as_html($context, %opts),
+    });
 }
 
 1;

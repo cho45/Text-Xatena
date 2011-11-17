@@ -4,9 +4,8 @@ use strict;
 use warnings;
 use base qw(Text::Xatena::Node);
 
-our $BASE = 3;
-our $BEGINNING = qq{<div class="section">\n};
-our $ENDOFNODE = qq{\n</div>};
+use Text::Xatena::Util;
+
 use constant {
     SECTION => qr/^(?:
         (\*\*\*?)([^\*].*)     | # *** or **
@@ -42,16 +41,19 @@ sub title { $_[0]->{title} }
 
 ## NOT COMPATIBLE WITH Hatena Syntax
 sub as_html {
-    my ($self, %opts) = @_;
-    my $level = $self->level + $BASE - 1;
-    sprintf("%s<h%d>%s</h%d>\n%s\n%s",
-        $BEGINNING,
-        $level,
-        $self->inline($self->title, %opts),
-        $level,
-        $self->SUPER::as_html(%opts),
-        $ENDOFNODE
-    );
+    my ($self, $context, %opts) = @_;
+    my $level = $self->level;
+
+    $context->_tmpl(__PACKAGE__, q[
+        <div class="section">
+            <h{{= $level + 2 }}>{{= $title }}</h{{= $level + 2 }}>
+            {{= $content }}
+        </div>
+    ], {
+        title   => $context->inline->format($self->title),
+        level   => $level,
+        content => $self->SUPER::as_html($context, %opts),
+    });
 }
 
 1;

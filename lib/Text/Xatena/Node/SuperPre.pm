@@ -27,12 +27,18 @@ sub parse {
 sub lang { $_[0]->{lang} }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    sprintf("<pre class=\"%s%s\">%s</pre>",
-        $SUPERPRE_CLASS_NAME,
-        $self->lang ? " lang-" . $self->lang : "",
-        escape_html(join "", @{ $self->children })
-    );
+    my ($self, $context, %opts) = @_;
+    $context->_tmpl(__PACKAGE__, q[
+        ? if ($lang) {
+            <pre class="{{= $class }} {{= "lang-$lang" }}">{{= $content }}</pre>
+        ? } else {
+            <pre class="{{= $class }}">{{= $content }}</pre>
+        ? }
+    ], {
+        class   => $SUPERPRE_CLASS_NAME,
+        lang    => $self->lang,
+        content => escape_html(join "", @{ $self->children })
+    });
 }
 
 1;

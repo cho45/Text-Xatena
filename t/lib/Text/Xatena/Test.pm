@@ -41,9 +41,12 @@ sub run_html (%) {
 
 sub thx ($) {
     my ($str) = @_;
-    my $thx = Text::Xatena->new(%{ $options });
     $INLINE->use if $INLINE;
-    my $ret = $thx->format($str, inline => $INLINE ? $INLINE->new(@{ $INLINE_ARGS }) : undef );
+    my $thx = Text::Xatena->new(
+        %{ $options },
+        inline => $INLINE ? $INLINE->new(@{ $INLINE_ARGS }) : undef 
+    );
+    my $ret = $thx->format($str, );
     $ret;
 }
 

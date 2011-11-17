@@ -20,7 +20,7 @@ sub parse {
 }
 
 sub as_struct {
-    my ($self) = @_;
+    my ($self, $context) = @_;
     my $ret = [];
     my $children = $self->children;
 
@@ -29,8 +29,8 @@ sub as_struct {
         for my $col (split /\|/, $line) {
             my ($th, $content) = ($col =~ /^(\*)?(.*)$/);
             push @$row, +{
-                name => ($th ? 'th' : 'td'),
-                children => [ $content ],
+                name     => ($th ? 'th' : 'td'),
+                content => $context->inline->format($content),
             };
         }
         shift @$row;
@@ -41,21 +41,20 @@ sub as_struct {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    my $ret  = "<table>\n";
-    for my $row (@{ $self->as_struct }) {
-        $ret .= "<tr>\n";
-        for my $col (@$row) {
-            $ret .= sprintf("<%s>%s</%s>\n",
-                $col->{name},
-                $self->inline(join("", @{ $col->{children} }), %opts),
-                $col->{name}
-            );
-        }
-        $ret .= "</tr>\n";
-    }
-    $ret .= "</table>\n";
-    $ret;
+    my ($self, $context, %opts) = @_;
+    $context->_tmpl(__PACKAGE__, q[
+        <table>
+        ? for my $row (@$rows) {
+            <tr>
+        ?   for my $col (@$row) {
+            <{{= $col->{name} }}>{{= $col->{content} }}</{{= $col->{name} }}>
+        ?   }
+            </tr>
+        ? }
+        </table>
+    ], {
+        rows => $self->as_struct($context)
+    });
 }
 
 

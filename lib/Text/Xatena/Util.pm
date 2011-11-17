@@ -3,8 +3,9 @@ package Text::Xatena::Util;
 use strict;
 use warnings;
 
-our @EXPORT = qw(escape_html);
+our @EXPORT = qw(escape_html template unindent);
 use Exporter::Lite;
+use Text::MicroTemplate;
 
 my %escape = (
     '&' => '&amp;',
@@ -20,6 +21,33 @@ sub escape_html ($) { ## no critic
     $str;
 }
 
+sub unindent ($) {
+    my $string = shift;
+    my ($indent) = ($string =~ /^\n?(\s*)/);
+    $string =~ s/^$indent//gm;
+    $string =~ s/\s+$//;
+    $string;
+}
+
+sub template ($$) { ## no critic
+    my ($template, $keys) = @_;
+
+    my $mt = Text::MicroTemplate->new(
+        tag_start   => '{{',
+        tag_end     => '}}',
+        template    => unindent $template,
+        escape_func => undef,
+    );
+
+    my $code     = $mt->code;
+    my $expand   = join('; ', map { "my \$$_ = \$_[0]->{$_}" } @$keys);
+    my $renderer = eval << "    ..." or die $@;
+        sub {
+            $expand;
+            $code->();
+        }
+    ...
+}
 
 1;
 __END__

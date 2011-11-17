@@ -63,23 +63,27 @@ sub as_struct {
 }
 
 sub as_html {
-    my ($self, %opts) = @_;
-    $self->_as_html($self->as_struct, %opts);
+    my ($self, $context, %opts) = @_;
+    $self->_as_html($context, $self->as_struct, %opts);
 }
 
 sub _as_html {
-    my ($self, $obj, %opts) = @_;
-    my $ret = "<" . $obj->{name} . ">";
-    $ret .= "\n" unless $obj->{name} eq 'li';
-    for my $child (@{ $obj->{children} }) {
-        if (ref($child)) {
-            $ret .= $self->_as_html($child, %opts);
-        } else {
-            $ret .= $self->inline($child, %opts);
-        }
+    my ($self, $context, $obj, %opts) = @_;
+
+    if ($obj->{name} eq 'li') {
+        join('', map { ref($_) ? $self->_as_html($context, $_, %opts) : $context->inline->format($_) } @{ $obj->{children} } );
+    } else {
+        $context->_tmpl(__PACKAGE__, q[
+            <{{= $name }}>
+            ? for (@$items) {
+            <li>{{= $_ }}</li>
+            ? }
+            </{{= $name }}>
+        ], {
+            name  => $obj->{name},
+            items => [ map { $self->_as_html($context, $_, %opts) } @{ $obj->{children} } ]
+        });
     }
-    $ret .= "</" . $obj->{name} . ">\n";
-    $ret;
 }
 
 

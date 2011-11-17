@@ -343,6 +343,23 @@ SYNTAX
 
       my $thx = Text::Xatena->new(hatena_compatible => 1);
 
+  Customize templates in formatting
+    If you want to customize HTML, you can specify templates in
+    Text::Xatena#new. This is interpreted as Text::MicroTemplate.
+
+    You should reuse Text::Xatena object for performance.
+
+      my $thx = Text::Xatena->new(
+        templates => {
+          'Text::Xatena::Node::Section' => q[
+            <section class="level-{{= $level }}">
+                <h1>{{= $title }}</h1>
+                {{= $content }}
+            </section>
+          ],
+        }
+      );
+
 AUTHOR
     cho45 <cho45@lowreal.net>
 
