@@ -64,28 +64,30 @@ use Text::Xatena;
 use Text::Markdown;
 use Text::Textile;
 
-my $thx = Text::Xatena->new;
+my $thx      = Text::Xatena->new;
 my $markdown = Text::Markdown->new;
-my $textile = Text::Textile->new;
+my $textile  = Text::Textile->new;
 
 cmpthese(-1, {
-	'Xatena' => sub {
+	"Text::Xatena $Text::Xatena::VERSION" => sub {
 		my $html = $thx->format($text);
 	},
-	'Hatena' => sub {
+	"Text::Hatena $Text::Hatena::VERSION" => sub {
 		my $html = Text::Hatena->parse($text);
 	},
-	'Markdown' => sub {
+	"Text::Markdown $Text::Markdown::VERSION" => sub {
 		my $html = $markdown->markdown($text);
 	},
-	'Textile' => sub {
+	"Text::Textile $Text::Textile::VERSION" => sub {
 		my $html = $textile->process($text);
 	},
 });
 
 __END__
-           Rate   Hatena  Textile Markdown   Xatena
-Hatena   26.5/s       --     -85%     -86%     -93%
-Textile   175/s     563%       --      -8%     -56%
-Markdown  191/s     621%       9%       --     -52%
-Xatena    395/s    1393%     125%     107%       --
+MacBook Air 1.8GHz Intel Core i7 / 4GB RAM
+                          Rate Text::Hatena 0.20 Text::Markdown 1.000031 Text::Textile 2.12 Text::Xatena 0.14
+Text::Hatena 0.20       40.0/s                --                    -83%               -85%              -90%
+Text::Markdown 1.000031  234/s              486%                      --               -10%              -44%
+Text::Textile 2.12       261/s              552%                     11%                 --              -37%
+Text::Xatena 0.14        415/s              937%                     77%                59%                --
+
