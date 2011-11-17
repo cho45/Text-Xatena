@@ -144,15 +144,16 @@ Text::Xatena - Text-to-HTML converter with Xatena syntax.
   $thx->format($string);
 
   # with some aggressive functions
-  $thx->format($string,
+  my $thx = Text::Xatena->new(
       inline => Text::Xatena::Inline::Aggressive->new(cache => Cache::MemoryCache->new)
   );
+  $thx->format($string);
 
 Customizing inline formatting rule
 
-  Text::Xatena->new->format($string,
+  Text::Xatena->new(
       inline => MyInline->new
-  );
+  )->format($string);
 
   package MyInline;
   use strict;
@@ -469,7 +470,8 @@ and footnote object is available in inline object, so you will do expand it like
 
   my $thx = Text::Xatena->new;
   my $inline = Text::Xatena::Inline->new;
-  my $formatted = $thx->format('aaa((foobar)) bbb((barbaz))', inline => $inline);
+  $thx->inline($inline);
+  my $formatted = $thx->format('aaa((foobar)) bbb((barbaz))');
   my $out = '';
   $out .= '<div class="body">';
   $out .= $formatted;
