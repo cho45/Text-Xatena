@@ -14,13 +14,13 @@ use Text::Xatena::Util;
 subtest html5 => sub {
     my $thx = Text::Xatena->new(
         templates => {
-            'Text::Xatena::Node::Section' => q[
+            'Section' => q[
                 <section class="level-{{= $level }}">
                     <h1>{{= $title }}</h1>
                     {{= $content }}
                 </section>
             ],
-            'Text::Xatena::Node::Blockquote' => q[
+            'Blockquote' => q[
                 <figure>
                 ? if ($cite) {
                     <blockquote cite="{{= $cite }}">

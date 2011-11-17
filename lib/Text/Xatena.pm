@@ -28,23 +28,27 @@ our $SYNTAXES = [
 sub new {
     my ($class, %opts) = @_;
 
-    my $self = bless {
-        %opts
-    }, $class;
+    my $self = bless { %opts }, $class;
 
-    $self->{syntaxes} ||= $SYNTAXES;
+    $self->{templates} ||= {};
+    $self->{templates} = {
+        map {
+            my $pkg = "Text::Xatena::Node::$_" unless $_ =~ /::/;
+            $pkg => $self->{templates}->{$_};
+        }
+        keys %{ $self->{templates} }
+    };
+
+    $self->{syntaxes} = [
+        map {
+            $_ = "Text::Xatena::Node::$_" unless $_ =~ /::/;
+            $_->use or die $@;
+            $_;
+        }
+        @{ $opts{syntaxes} || $SYNTAXES }
+    ];
+
     $self->{inline}   ||= Text::Xatena::Inline->new;
-
-    if ($self->{hatena_compatible}) {
-        $self->{templates}->{'Text::Xatena::Node::Section'} = q[
-            <h{{= $level + 2 }}>{{= $title }}</h{{= $level + 2 }}>
-            {{= $content }}
-        ];
-    }
-
-    for my $pkg (@{ $self->{syntaxes} }) {
-        $pkg->use or die $@;
-    }
 
     $self;
 }
@@ -54,6 +58,11 @@ sub format {
     $string =~ s{\r\n?|\n}{\n}g;
 
     if ($self->{hatena_compatible}) {
+        $self->{templates}->{'Text::Xatena::Node::Section'} = q[
+            <h{{= $level + 2 }}>{{= $title }}</h{{= $level + 2 }}>
+            {{= $content }}
+        ];
+
         no warnings "once", "redefine";
         local *Text::Xatena::Node::as_html_paragraph = sub {
             my ($self, $context, $text, %opts) = @_;
@@ -506,7 +515,7 @@ You should reuse Text::Xatena object for performance.
 
   my $thx = Text::Xatena->new(
     templates => {
-      'Text::Xatena::Node::Section' => q[
+      'Section' => q[
         <section class="level-{{= $level }}">
             <h1>{{= $title }}</h1>
             {{= $content }}

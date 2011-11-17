@@ -351,7 +351,7 @@ SYNTAX
 
       my $thx = Text::Xatena->new(
         templates => {
-          'Text::Xatena::Node::Section' => q[
+          'Section' => q[
             <section class="level-{{= $level }}">
                 <h1>{{= $title }}</h1>
                 {{= $content }}
