@@ -1,5 +1,7 @@
 2011-11-17  SATOH Hiroh <cho45@lowreal.net>
 
+	* 0.14:
+
 	* Enable use templates:
 	You can specify templates in Text::Xatena#new(templates => {}).
 
