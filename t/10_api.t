@@ -39,6 +39,11 @@ subtest "replace inline" => sub {
         is $thx->format('TEST'), "<p>XXXX</p>\n";
     };
     is $thx->format('TEST'), "<p>TEST</p>\n";
+    {
+        my $thx = Text::Xatena->new;
+        is $thx->format('TEST', inline => Text::Xatena::Test::MyInline->new), "<p>XXXX</p>\n";
+    };
+    is $thx->format('TEST'), "<p>TEST</p>\n";
 
     done_testing;
 };

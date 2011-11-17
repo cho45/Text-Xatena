@@ -4,9 +4,6 @@
 	You can specify templates in Text::Xatena#new(templates => {}).
 
 	* Imcompatible changes:
-	Text::Xatena#format does not take 'inline' option any more, so you
-	must specify it in Text::Xatena#new(inline => ...).
-
 	Removed Text::Xatena::Node::Section::BASE.
 	Removed Text::Xatena::Node::Section::BEGINNING.
 	Removed Text::Xatena::Node::Section::ENDOFNODE.

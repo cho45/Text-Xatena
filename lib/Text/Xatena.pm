@@ -54,8 +54,10 @@ sub new {
 }
 
 sub format {
-    my ($self, $string) = @_;
+    my ($self, $string, %opts) = @_;
     $string =~ s{\r\n?|\n}{\n}g;
+
+    $self->inline($opts{inline}) if $opts{inline};
 
     if ($self->{hatena_compatible}) {
         $self->{templates}->{'Text::Xatena::Node::Section'} = q[
