@@ -21,7 +21,7 @@ sub escape_html ($) { ## no critic
     $str;
 }
 
-sub unindent ($) {
+sub unindent ($) { ## no critic
     my $string = shift;
     my ($indent) = ($string =~ /^\n?(\s*)/);
     $string =~ s/^$indent//gm;
@@ -41,7 +41,7 @@ sub template ($$) { ## no critic
 
     my $code     = $mt->code;
     my $expand   = join('; ', map { "my \$$_ = \$_[0]->{$_}" } @$keys);
-    my $renderer = eval << "    ..." or die $@;
+    my $renderer = eval << "    ..." or die $@; ## no critic
         sub {
             $expand;
             $code->();

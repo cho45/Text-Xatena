@@ -3,6 +3,8 @@ use Test::Dependencies
 	exclude =>
 		[qw/ opts Text::Xatena Filter::Util::Call Test::Base /];
 
+no warnings 'redefine';
+
 local *Test::Dependencies::LoadFile = sub {
 	my ($filename) = @_;
 	my $data = YAML::LoadFile($filename);
