@@ -76,7 +76,7 @@ match qr<\[((?:https?|ftp)://[^\s:]+(?::\d+)?[^\s:]+)(:(?:title(?:=([^[]+))?|bar
                 if (not defined $title) {
                     eval {
                         my $res = $self->ua->get($uri);
-                        ($title) = ($res->content =~ qr|<title[^>]*>([^<]*)</title>|i);
+                        ($title) = ($res->decoded_content =~ qr|<title[^>]*>([^<]*)</title>|i);
                         $self->cache->set($uri, $title, "30 days");
                     };
                     if ($@) {
