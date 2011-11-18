@@ -29,11 +29,16 @@ sub parse {
 sub as_html {
     my ($self, $context, %opts) = @_;
 
+    my $text   = $self->{beginning}->[1];
+    my $title = $context->inline->format('[' . $text . ']');
+
+    my ($uri) = ($title =~ m{(https?://[^\s"':]+)});
+
     $context->_tmpl(__PACKAGE__, q[
         ? if ($cite) {
             <blockquote cite="{{= $cite }}">
                 {{= $content }}
-                <cite><a href="{{= $cite }}">{{= $cite }}</a></cite>
+                <cite>{{= $title }}</cite>
             </blockquote>
         ? } else {
             <blockquote>
@@ -41,7 +46,8 @@ sub as_html {
             </blockquote>
         ? }
     ], {
-        cite    => $self->{beginning}->[1],
+        cite    => $uri,
+        title   => $title,
         content => $self->SUPER::as_html($context, %opts),
     });
 }
