@@ -1,3 +1,9 @@
+2011-11-18  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.15:
+	Support blockquote title: >http://example.com/:title> .. <<
+	Fixed Inline::Aggressive to get title correctly.
+
 2011-11-17  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.14:
