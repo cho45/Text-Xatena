@@ -2,7 +2,8 @@
 use strict;
 use warnings;
 use utf8;
-use Benchmark qw(:all) ;
+use Time::HiRes;
+use Benchmark qw(:all :hireswallclock) ;
 
 my $text = <<EOS;
 * Xatena
@@ -68,7 +69,7 @@ my $thx      = Text::Xatena->new;
 my $markdown = Text::Markdown->new;
 my $textile  = Text::Textile->new;
 
-cmpthese(-1, {
+my $results = timethese(-1, {
 	"Text::Xatena $Text::Xatena::VERSION" => sub {
 		my $html = $thx->format($text);
 	},
@@ -82,6 +83,8 @@ cmpthese(-1, {
 		my $html = $textile->process($text);
 	},
 });
+
+cmpthese($results);
 
 __END__
 MacBook Air 1.8GHz Intel Core i7 / 4GB RAM
