@@ -171,7 +171,7 @@ bar
 <p>-</p>
 <p>bar</p>
 
-== bug
+=== bug
 --- input
 ++ unko
 
@@ -184,7 +184,7 @@ bar
 	</li>
 </ol>
 
-== bug
+=== bug
 --- input
 -- unko
 
@@ -197,7 +197,7 @@ bar
 	</li>
 </ul>
 
-== bug
+=== bug
 --- input
 +++ unko
 
@@ -214,7 +214,7 @@ bar
 	</li>
 </ol>
 
-== bug
+=== bug
 --- input
 + foo
 - bar

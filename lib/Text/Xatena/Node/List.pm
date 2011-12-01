@@ -51,7 +51,7 @@ sub as_struct {
                         name => 'li',
                         children => [ $container ],
                     };
-                    push @{ $stack->[-1]->{items} }, $container;
+                    push @{ $stack->[-1]->{items} }, $item;
                 }
             } else {
                 push @$ret, $container;
