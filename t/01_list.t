@@ -6,9 +6,9 @@ use Text::Xatena::Test;
 
 plan tests => 1 * blocks() + 1;
 
-run_html;
-
 like thx('- foo'), qr{<ul>\s*<li>foo</li>\s*</ul>}, 'check whitespaces';
+
+run_html;
 
 __END__
 
@@ -170,3 +170,59 @@ bar
 <p>foo</p>
 <p>-</p>
 <p>bar</p>
+
+== bug
+--- input
+++ unko
+
+--- expected
+<ol>
+	<li>
+		<ol>
+			<li>unko</li>
+		</ol>
+	</li>
+</ol>
+
+== bug
+--- input
+-- unko
+
+--- expected
+<ul>
+	<li>
+		<ul>
+			<li>unko</li>
+		</ul>
+	</li>
+</ul>
+
+== bug
+--- input
++++ unko
+
+--- expected
+<ol>
+	<li>
+		<ol>
+			<li>
+				<ol>
+					<li>unko</li>
+				</ol>
+			</li>
+		</ol>
+	</li>
+</ol>
+
+== bug
+--- input
++ foo
+- bar
+
+--- expected
+<ol>
+	<li>foo</li>
+</ol>
+<ul>
+	<li>bar</li>
+</ul>

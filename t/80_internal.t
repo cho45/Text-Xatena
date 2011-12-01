@@ -53,9 +53,9 @@ same $res, {
 	children => [
 		{
 			children => [
-				"- foo",
-				"- bar",
-				"- baz",
+				[ "- foo", "-", "foo"],
+				[ "- bar", "-", "bar"],
+				[ "- baz", "-", "baz"],
 			]
 		}
 	]
@@ -72,9 +72,9 @@ same $res, {
 	children => [
 		{
 			children => [
-				"- foo",
-				"- bar",
-				"- baz",
+				[ "- foo", "-", "foo"],
+				[ "- bar", "-", "bar"],
+				[ "- baz", "-", "baz"],
 			]
 		},
 		"piyo"
@@ -93,9 +93,9 @@ same $res, {
 	children => [
 		{
 			children => [
-				"- foo",
-				"- bar",
-				"- baz",
+				[ "- foo", "-", "foo"],
+				[ "- bar", "-", "bar"],
+				[ "- baz", "-", "baz"],
 			]
 		},
 		"",

@@ -2,6 +2,7 @@ package Text::Xatena::Test;
 
 use strict;
 use warnings;
+use Test::More;
 use Test::Base -Base;
 use HTML::Parser;
 use Data::Dumper;
@@ -35,7 +36,7 @@ sub run_html (%) {
             $input =~ s/\n/$opts{linefeed}/g;
         }
         my $got = thx $input;
-        eq_or_diff_html($got, $expected, $block->name);
+        eq_or_diff_html($got, $expected, $block->name) or note $input;
     }
 }
 
