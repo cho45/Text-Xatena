@@ -30,21 +30,22 @@ sub as_html {
     my ($self, $context, %opts) = @_;
 
     my $text   = $self->{beginning}->[1];
-    my $title = $context->inline->format('[' . $text . ']');
 
+    my ($title, $uri);
+    if ($text =~ /^http/) {
+        $title = $context->inline->format('[' . $text . ']');
+    } else {
+        $title = $context->inline->format($text);
+    }
     my ($uri) = ($title =~ m{(https?://[^\s"':]+)});
 
     $context->_tmpl(__PACKAGE__, q[
-        ? if ($cite) {
-            <blockquote cite="{{= $cite }}">
-                {{= $content }}
-                <cite>{{= $title }}</cite>
-            </blockquote>
-        ? } else {
-            <blockquote>
-                {{= $content }}
-            </blockquote>
-        ? }
+        <blockquote {{if ($cite) { }}cite="{{= $cite }}"{{ } }}>
+            {{= $content }}
+            {{ if ($title) { }}
+            <cite>{{= $title }}</cite>
+            {{ } }}
+        </blockquote>
     ], {
         cite    => $uri,
         title   => $title,

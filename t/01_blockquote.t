@@ -75,6 +75,17 @@ quote
 	<cite><a href="http://example.com/">Example Web Page</a></cite>
 </blockquote>
 
+=== cite
+--- input
+>foobar>
+quote
+<<
+--- expected
+<blockquote>
+	<p>quote</p>
+	<cite>foobar</cite>
+</blockquote>
+
 
 === test
 --- input
