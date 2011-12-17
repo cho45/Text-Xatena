@@ -182,3 +182,10 @@ http://example.com/
 <p>
 <img src="http://chart.apis.google.com/chart?cht=tx&chl=e%5E%7Bi%5Cpi%7D%20%3D%20-1" alt="e^{i\pi} = -1"/>
 </p>
+
+=== tag
+--- input
+><iframe src="http://example.com/"></iframe><
+--- expected
+<iframe src="http://example.com/"></iframe>
+

@@ -52,10 +52,10 @@ use Text::Xatena;
 BEGIN { $ENV{NYTPROF} = 'start=no:file=nytprof.out' }
 use Devel::NYTProf;
 
-my $thx = Text::Xatena->new;
 
 DB::enable_profile;
 for (1..1000) {
+	my $thx = Text::Xatena->new;
 	my $html = $thx->format($text);
 }
 DB::finish_profile;

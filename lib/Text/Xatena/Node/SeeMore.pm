@@ -21,8 +21,6 @@ sub parse {
     }
 }
 
-sub lang { $_[0]->{lang} }
-
 sub as_html {
     my ($self, $context, %opts) = @_;
     $context->_tmpl(__PACKAGE__, q[

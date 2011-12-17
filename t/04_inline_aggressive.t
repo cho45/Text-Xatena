@@ -173,3 +173,13 @@ Example Web Page
 エグザンプルウェブページ
 </a>
 </p>
+
+=== http title
+--- input
+[http://example.com/shift_jis_ct:title]
+--- expected
+<p>
+<a href="http://example.com/shift_jis_ct">
+エグザンプルウェブページ
+</a>
+</p>

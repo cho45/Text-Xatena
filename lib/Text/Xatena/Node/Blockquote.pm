@@ -31,12 +31,10 @@ sub as_html {
 
     my $text   = $self->{beginning}->[1];
 
-    my ($title, $uri);
-    if ($text =~ /^http/) {
-        $title = $context->inline->format('[' . $text . ']');
-    } else {
-        $title = $context->inline->format($text);
-    }
+    my $title = ($text =~ /^http/) ?
+        $context->inline->format('[' . $text . ']'):
+        $context->inline->format($text);
+
     my ($uri) = ($title =~ m{(https?://[^\s"':]+)});
 
     $context->_tmpl(__PACKAGE__, q[
