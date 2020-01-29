@@ -480,7 +480,7 @@ and footnote object is available in inline object, so you will do expand it like
   $out .= '</div>';
   $out .= '<div class="notes">';
   for my $footnote (@{ $inline->footnotes }) {
-     $out .= sprintf('<div class="footnote" id="#fn%d">*%d: %s</div>',
+     $out .= sprintf('<div class="footnote" id="fn%d">*%d: %s</div>',
        $footnote->{number},
        $footnote->{number},
        $footnote->{note},
